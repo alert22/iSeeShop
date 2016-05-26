@@ -19,10 +19,10 @@ public class IndicatorView extends FrameLayout {
     private boolean selected = false;
     private int coloreLinea = Color.RED;
     private Paint _paint;
-    private float lunghezza;
-    private float altezza;
     private FrameLayout.LayoutParams params;
     private int grandezzaBarra = 10;
+
+
     public IndicatorView(Context context) {
         super(context);
         textTab = new TextView(getContext());
@@ -31,8 +31,9 @@ public class IndicatorView extends FrameLayout {
         textTab.setTextSize(fontSize);
         textTab.setGravity(Gravity.CENTER_HORIZONTAL | Gravity.CENTER_VERTICAL);
         textTab.setPadding(0,30,0,30);
-        this.setBackgroundColor(Color.WHITE);
         this.addView(textTab);
+        this.setClickable(true);
+        this.setBackground(getResources().getDrawable(R.drawable.ripple));
         invalidate();
     }
 
