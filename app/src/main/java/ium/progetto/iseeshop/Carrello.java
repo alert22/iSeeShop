@@ -14,7 +14,6 @@ import java.util.ArrayList;
  */
 public class Carrello extends FragmentActivity {
 
-    TabHost tabHost;
     private ListView listViewCarrello;
     CustomAdapter customAdapter;
     ArrayList<Prodotto> arrayProdotti;
@@ -30,8 +29,8 @@ public class Carrello extends FragmentActivity {
         listViewCarrello = (ListView) findViewById(R.id.listaProdotti);
         customAdapter=new CustomAdapter(this, R.layout.list_element, new ArrayList<Prodotto>());
         listViewCarrello.setAdapter(customAdapter);
-        prodotto = new Prodotto("Latte Parmalat", "1.00");
-        prodotto1 = new Prodotto("Fagioli bb", "2.00");
+        prodotto = new Prodotto("Latte Parmalat", 1.00f);
+        prodotto1 = new Prodotto("Fagioli bb", 2.00f);
         arrayProdotti.add(prodotto);
         customAdapter.add(prodotto);
         customAdapter.add(prodotto1);
