@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+
+    <TextView
+        android:id="@+id/nome"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:minHeight="40dp"
+        android:gravity="left"
+        android:textSize="20sp"
+        android:textAlignment="center"
+        android:textColor="#3b4544"
+        android:typeface = "serif"
+        android:textAppearance="@style/Base.Widget.AppCompat.Spinner.Underlined"
+        />
+
+    <TextView
+        android:id="@+id/prezzo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:minHeight="40dp"
+        android:gravity="right"
+        android:layout_gravity="right"
+        android:textAlignment="center"
+        android:textSize="20sp"
+        android:textColor="#3b4544"
+        android:typeface = "serif"
+        android:textAppearance="@style/Base.Widget.AppCompat.Spinner.Underlined"
+        android:layout_alignParentTop="true"
+        android:layout_toLeftOf="@+id/textView"
+        android:layout_toStartOf="@+id/textView" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        android:textColor="#3b4544"
+        android:typeface = "serif"
+        android:textAppearance="@style/Base.Widget.AppCompat.Spinner.Underlined"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:text="@string/euro"
+        android:id="@+id/textView" />
+
+</RelativeLayout>

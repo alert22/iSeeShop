@@ -1,17 +1,21 @@
 package ium.progetto.iseeshop;
 
-import android.content.Intent;
-import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ListView;
 import android.widget.TabHost;
-import android.widget.TextView;
+
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
     TabHost tabHost;
+    private ListView listViewCarrello;
+    CustomAdapter customAdapter;
+    ArrayList<Prodotto> arrayProdotti;
+    private Prodotto prodotto;
+    private Prodotto prodotto1;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -19,7 +23,6 @@ public class MainActivity extends AppCompatActivity {
 
         TabHost host = (TabHost)findViewById(R.id.tabHost);
         host.setup();
-
         //Tab 1
         TabHost.TabSpec spec = host.newTabSpec("Scansione");
         spec.setContent(R.id.Scansione);
@@ -31,8 +34,18 @@ public class MainActivity extends AppCompatActivity {
         spec = host.newTabSpec("Carrello");
         spec.setContent(R.id.Carrello);
         spec.setIndicator("Carrello");
-
         host.addTab(spec);
+
+        arrayProdotti = new ArrayList<>();
+        listViewCarrello = (ListView) findViewById(R.id.listaProdotti);
+        customAdapter=new CustomAdapter(this, R.layout.list_element, new ArrayList<Prodotto>());
+        listViewCarrello.setAdapter(customAdapter);
+        prodotto = new Prodotto("Latte Parmalat", "1.00");
+        prodotto1 = new Prodotto("Fagioli bb", "2.00");
+        arrayProdotti.add(prodotto);
+        customAdapter.add(prodotto);
+        customAdapter.add(prodotto1);
+
     }
 
     @Override

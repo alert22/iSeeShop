@@ -10,7 +10,6 @@
         android:layout_height="match_parent"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-
         >
 
         <LinearLayout
@@ -24,7 +23,8 @@
                 android:layout_height="wrap_content"
                 android:showDividers="middle"
                 android:divider="#000000"
-                />
+                >
+            </TabWidget>
 
             <FrameLayout
                 android:id="@android:id/tabcontent"
@@ -41,14 +41,12 @@
 
                     <ImageView
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_height="0dp"
                         android:layout_gravity="center"
                         android:foregroundGravity="center_vertical"
                         android:layout_marginTop="50dp"
                         android:background="@drawable/tag"
-                        />
-
-
+                        android:layout_weight="1" />
                 </LinearLayout>
 
 
@@ -56,13 +54,38 @@
                     android:id="@+id/Carrello"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="#5b89ff"
                     android:orientation="vertical">
 
-                    <TextView
+                    <ListView
+                        android:id="@+id/listaProdotti"
+                        android:layout_width="wrap_content"
+                        android:layout_height="400dp"
+                        android:divider="#000000"
+                        android:dividerHeight="1dp"
+                        />
+                    <RelativeLayout
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:text="This is tab 2" />
+                        android:layout_height="32dp"
+                        android:orientation="vertical"
+                        android:gravity="bottom"
+                        >
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Totale:"
+                            android:textSize="30dp"
+                            android:layout_gravity="left" />
+                        <TextView
+                            android:id="@+id/totale"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Euro"
+                            android:textSize="30dp"
+                            android:layout_gravity="right"
+                            android:layout_alignParentRight="true"
+                            android:layout_alignParentEnd="true"/>
+                    </RelativeLayout>
+
                 </LinearLayout>
             </FrameLayout>
         </LinearLayout>
