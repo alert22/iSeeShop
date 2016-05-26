@@ -3,10 +3,16 @@ package ium.progetto.iseeshop;
 import android.app.ActivityGroup;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Gravity;
+import android.view.View;
 import android.widget.TabHost;
+import android.widget.TextView;
+
 
 
 public class MainActivity extends ActivityGroup {
+
+    private int fontSize = 25;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -17,21 +23,47 @@ public class MainActivity extends ActivityGroup {
         Intent carrello = new Intent(this, Carrello.class);
 
 
+
         TabHost host = (TabHost)findViewById(R.id.tabHost);
         host.setup(this.getLocalActivityManager());
 
+        final IndicatorView indicatore1 = new IndicatorView(getApplicationContext());
+        indicatore1.setText("SCANSIONE");
+
+        final IndicatorView indicatore2 = new IndicatorView(getApplicationContext());
+        indicatore2.setText("CARRELLO");
         //Tab 1
         TabHost.TabSpec spec = host.newTabSpec("Scansione")
                 .setContent(scansione)
-                .setIndicator("Scansione");
-        host.addTab(spec);
+                .setIndicator(indicatore1);
 
+        indicatore1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                indicatore1.setSelected(true);
+                indicatore2.setSelected(false);
+            }
+        });
+
+        host.addTab(spec);
 
         //Tab 2
         spec = host.newTabSpec("Carrello")
                 .setContent(carrello)
-                .setIndicator("Carrello");
+                .setIndicator(indicatore2);
+
+
+        indicatore2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                indicatore2.setSelected(true);
+                indicatore1.setSelected(false);
+            }
+        });
         host.addTab(spec);
+
+
+
     }
 
 }

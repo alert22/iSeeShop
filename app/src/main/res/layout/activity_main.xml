@@ -20,23 +20,14 @@
                 android:id="@android:id/tabs"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:showDividers="middle"
-                android:divider="#000000">
+                android:showDividers="middle|beginning|end"
+                android:divider="#000000"
+                android:tabStripEnabled="true">
             </TabWidget>
             <FrameLayout
                 android:id="@android:id/tabcontent"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
-                <FrameLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:id="@+id/Scansione">
-                </FrameLayout>
-                <FrameLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:id="@+id/Carrello">
-                </FrameLayout>
             </FrameLayout>
         </LinearLayout>
     </TabHost>

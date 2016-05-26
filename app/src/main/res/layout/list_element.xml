@@ -1,16 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="horizontal" android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="50dp"
+    android:layout_margin="10dp"
     >
 
     <TextView
+        android:text="Nome Prodotto"
         android:id="@+id/nome"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:minHeight="40dp"
         android:gravity="left"
-        android:textSize="20sp"
+        android:textSize="@dimen/font_size"
         android:textAlignment="center"
         android:textColor="#3b4544"
         android:typeface = "serif"
@@ -18,6 +20,7 @@
         />
 
     <TextView
+        android:text="Prezzo"
         android:id="@+id/prezzo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -25,7 +28,7 @@
         android:gravity="right"
         android:layout_gravity="right"
         android:textAlignment="center"
-        android:textSize="20sp"
+        android:textSize="@dimen/font_size"
         android:textColor="#3b4544"
         android:typeface = "serif"
         android:textAppearance="@style/Base.Widget.AppCompat.Spinner.Underlined"
@@ -35,7 +38,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="20sp"
+        android:textSize="@dimen/font_size"
         android:textColor="#3b4544"
         android:typeface = "serif"
         android:textAppearance="@style/Base.Widget.AppCompat.Spinner.Underlined"
