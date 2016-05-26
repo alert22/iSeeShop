@@ -42,7 +42,7 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        android:text="@string/euro"
+        android:text=" Euro"
         android:id="@+id/textView" />
 
 </RelativeLayout>

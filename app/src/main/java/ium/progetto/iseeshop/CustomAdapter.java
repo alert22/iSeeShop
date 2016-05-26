@@ -37,7 +37,7 @@ public class CustomAdapter extends ArrayAdapter<Prodotto> {
         nomeTextView = (TextView) v.findViewById(R.id.nome);
         prezzoTextView = (TextView) v.findViewById(R.id.prezzo);
         nomeTextView.setText(sq.getNome());
-        prezzoTextView.setText(sq.getPrezzo());
+        prezzoTextView.setText(""+sq.getPrezzo());
 
 
         return v;

@@ -5,9 +5,9 @@ package ium.progetto.iseeshop;
  */
 public class Prodotto {
     String nome;
-    String prezzo;
+    float prezzo;
 
-    public Prodotto(String nome, String prezzo) {
+    public Prodotto(String nome, float prezzo) {
         this.nome = nome;
         this.prezzo = prezzo;
     }
@@ -20,11 +20,11 @@ public class Prodotto {
         this.nome = nome;
     }
 
-    public String getPrezzo() {
+    public float getPrezzo() {
         return prezzo;
     }
 
-    public void setPrezzo(String prezzo) {
+    public void setPrezzo(float prezzo) {
         this.prezzo = prezzo;
     }
 }
