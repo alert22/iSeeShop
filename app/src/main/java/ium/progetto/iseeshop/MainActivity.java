@@ -1,7 +1,10 @@
 package ium.progetto.iseeshop;
 
 import android.app.ActivityGroup;
+import android.app.ActivityManager;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -11,6 +14,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
 import android.view.Window;
+import android.view.WindowManager;
 import android.widget.TabHost;
 
 
@@ -20,12 +24,21 @@ public class MainActivity extends ActivityGroup {
 
 
 
-    @Override 
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Window window = this.getWindow();
+        Bitmap bm = BitmapFactory.decodeResource(getResources(),
+                R.drawable.ic_launcher);
+        ActivityManager.TaskDescription taskDesc =
+                new ActivityManager.TaskDescription("iSeeShop",bm, Color.parseColor("#075e55") );
+        this.setTaskDescription(taskDesc);
+
+
+        Window window = getWindow();
+        window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
         window.setStatusBarColor(Color.parseColor("#075e55"));
 
         Intent scansione = new Intent(this, Scansione.class);
