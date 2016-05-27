@@ -17,7 +17,8 @@ public class IndicatorView extends FrameLayout {
     private int fontSize = 25;
     private TextView textTab;
     private boolean selected = false;
-    private int coloreLinea = Color.parseColor("#009999");
+    private int coloreLinea = Color.parseColor("#FFFFFF"); //colore default #009999
+    private int coloreBackground = Color.parseColor("#075e55");
     private Paint _paint;
     private FrameLayout.LayoutParams params;
     private int grandezzaBarra = 10;
@@ -27,7 +28,7 @@ public class IndicatorView extends FrameLayout {
         super(context);
         textTab = new TextView(getContext());
         textTab.setText("tabHost");
-        textTab.setTextColor(Color.BLACK);
+        textTab.setTextColor(Color.WHITE);
         textTab.setTextSize(fontSize);
         textTab.setGravity(Gravity.CENTER_HORIZONTAL | Gravity.CENTER_VERTICAL);
         textTab.setPadding(0,30,0,30);
@@ -40,14 +41,18 @@ public class IndicatorView extends FrameLayout {
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
+        _paint = new Paint();
+        _paint.setColor(coloreBackground);
+        _paint.setStyle(Paint.Style.FILL);
+        _paint.setAlpha(200);
+        canvas.drawRect(new Rect(0, 0, getMeasuredWidth(), 300), _paint);
         if (selected) {
-            _paint = new Paint();
             _paint.setColor(coloreLinea);
-            _paint.setStyle(Paint.Style.FILL);
-            canvas.drawRect(new Rect(0, getMeasuredHeight()-grandezzaBarra, getMeasuredWidth(), 200), _paint);
-            invalidate();
+            _paint.setShadowLayer(10,0,0,Color.BLACK);
+            _paint.setAlpha(255);
+            canvas.drawRect(new Rect(0,getMeasuredHeight()-grandezzaBarra, getMeasuredWidth(),getMeasuredHeight()), _paint); //getMeasuredHeight()-grandezzaBarra
         }
-
+        invalidate();
     }
 
     public void setGrandezzaBarra(int grandezzaBarra) {
