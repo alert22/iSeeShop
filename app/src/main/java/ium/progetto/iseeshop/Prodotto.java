@@ -4,8 +4,8 @@ package ium.progetto.iseeshop;
  * Created by Utente on 12/05/2016.
  */
 public class Prodotto {
-    String nome;
-    float prezzo;
+    private String nome;
+    private float prezzo;
 
     public Prodotto(String nome, float prezzo) {
         this.nome = nome;
