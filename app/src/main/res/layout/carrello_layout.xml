@@ -31,7 +31,7 @@
             android:dividerHeight="1dp"
             android:layout_weight="20"
             android:layout_margin="10dp"/>
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
@@ -46,14 +46,26 @@
                 android:textSize="30dp"
                 android:layout_gravity="left"
                 android:textStyle="bold"/>
+
             <TextView
-                android:id="@+id/totale"
-                android:layout_width="match_parent"
+                android:id="@+id/somma"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="somma"
+                android:layout_marginLeft="5dp"
+                android:textSize="30dp"
+                android:gravity="right"
+                android:layout_alignParentTop="true"
+                android:layout_toStartOf="@+id/euro" />
+            <TextView
+                android:id="@+id/euro"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="€"
                 android:layout_marginLeft="5dp"
                 android:textSize="30dp"
-                android:gravity="right" />
-        </LinearLayout>
+                android:layout_alignParentTop="true"
+                android:layout_alignParentEnd="true" />
+        </RelativeLayout>
     </LinearLayout>
 </LinearLayout>
