@@ -26,7 +26,7 @@ public class Scansione extends FragmentActivity {
                         .setMessage(getString(R.string.textAlert)) //
                         .setPositiveButton(getString(R.string.showProduct), new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
-                                // TODO
+                                // TODO 
                                 dialog.dismiss();
                             }
                         }) //

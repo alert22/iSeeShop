@@ -4,4 +4,9 @@
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
     <string name="euro">\€</string>
+    <string name="titleAlert">Prodotto Trovato</string>
+    <string name="showProduct">Mostra</string>
+    <string name="ignoreProduct">Ignora</string>
+    <string name="textAlert">Procedere alla visualizzasione del prodotto?</string>
+
 </resources>
