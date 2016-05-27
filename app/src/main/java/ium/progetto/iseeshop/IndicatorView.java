@@ -5,6 +5,8 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
+import android.graphics.Typeface;
+import android.renderscript.Type;
 import android.view.Gravity;
 import android.widget.FrameLayout;
 import android.widget.TextView;
@@ -47,10 +49,13 @@ public class IndicatorView extends FrameLayout {
         _paint.setAlpha(200);
         canvas.drawRect(new Rect(0, 0, getMeasuredWidth(), 300), _paint);
         if (selected) {
+            textTab.setTypeface(Typeface.create(textTab.getTypeface(), Typeface.BOLD));
             _paint.setColor(coloreLinea);
-            _paint.setShadowLayer(10,0,0,Color.BLACK);
+            //_paint.setShadowLayer(10,0,0,Color.BLACK); in caso metti
             _paint.setAlpha(255);
             canvas.drawRect(new Rect(0,getMeasuredHeight()-grandezzaBarra, getMeasuredWidth(),getMeasuredHeight()), _paint); //getMeasuredHeight()-grandezzaBarra
+        } else {
+            textTab.setTypeface(Typeface.create(textTab.getTypeface(), Typeface.NORMAL));
         }
         invalidate();
     }
