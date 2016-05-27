@@ -8,5 +8,8 @@
     <string name="showProduct">Mostra</string>
     <string name="ignoreProduct">Ignora</string>
     <string name="textAlert">Procedere alla visualizzasione del prodotto?</string>
-
+    <string name="textAlertDelete">Procedere alla eliminazione del prodotto?</string>
+    <string name="deleteProduct">Elimina</string>
+    <string name="ignoreDeleteProduct">Annulla</string>
+    <string name="titleAlertDelete">Eliminare prodotto</string>
 </resources>

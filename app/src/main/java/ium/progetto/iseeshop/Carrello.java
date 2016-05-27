@@ -1,9 +1,14 @@
 package ium.progetto.iseeshop;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.support.v4.app.FragmentActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TabHost;
 
@@ -19,6 +24,7 @@ public class Carrello extends FragmentActivity {
     ArrayList<Prodotto> arrayProdotti;
     private Prodotto prodotto;
     private Prodotto prodotto1;
+    private Prodotto prodotto2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,9 +37,38 @@ public class Carrello extends FragmentActivity {
         listViewCarrello.setAdapter(customAdapter);
         prodotto = new Prodotto("Latte Parmalat", 1.00f);
         prodotto1 = new Prodotto("Fagioli bb", 2.00f);
+        prodotto2 = new Prodotto("Acqua Naturale", 0.90f);
         arrayProdotti.add(prodotto);
-        customAdapter.add(prodotto);
-        customAdapter.add(prodotto1);
+        arrayProdotti.add(prodotto1);
+        arrayProdotti.add(prodotto2);
+        aggiungiProdotti();
+
+        listViewCarrello.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, final int position, long id) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
+                builder.setTitle(getString(R.string.titleAlertDelete)) //
+                        .setMessage(getString(R.string.textAlertDelete)) //
+                        .setPositiveButton(getString(R.string.deleteProduct), new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                arrayProdotti.remove(position);
+                                aggiungiProdotti();
+                                dialog.dismiss();
+
+                            }
+                        }) //
+                        .setNegativeButton(getString(R.string.ignoreDeleteProduct), new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                // TODO
+                                dialog.dismiss();
+
+                            }
+                        });
+                builder.show();
+                return true;
+
+            }
+        });
     }
 
     @Override
@@ -56,5 +91,13 @@ public class Carrello extends FragmentActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public void aggiungiProdotti(){
+        customAdapter.clear();
+        for(int i=0; i<arrayProdotti.size(); i++){
+            customAdapter.add(arrayProdotti.get(i));
+            customAdapter.notifyDataSetChanged();
+        }
     }
 }
