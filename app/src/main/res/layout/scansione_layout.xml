@@ -2,18 +2,17 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <LinearLayout
+    <FrameLayout
         android:id="@+id/ScansioneLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#fefdff"
-        android:orientation="vertical">
+        android:background="#fefdff">
         <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:foregroundGravity="center_vertical"
             android:layout_margin="40dp"
             android:background="@drawable/tag" />
-    </LinearLayout>
+    </FrameLayout>
 </LinearLayout>
