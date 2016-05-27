@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TabHost;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 
@@ -20,11 +21,13 @@ import java.util.ArrayList;
 public class Carrello extends FragmentActivity {
 
     private ListView listViewCarrello;
+    private TextView textSomma;
     CustomAdapter customAdapter;
     ArrayList<Prodotto> arrayProdotti;
     private Prodotto prodotto;
     private Prodotto prodotto1;
     private Prodotto prodotto2;
+    private float somma;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,11 +36,12 @@ public class Carrello extends FragmentActivity {
 
         arrayProdotti = new ArrayList<>();
         listViewCarrello = (ListView) findViewById(R.id.listaProdotti);
+        textSomma = (TextView) findViewById(R.id.somma);
         customAdapter=new CustomAdapter(this, R.layout.list_element, new ArrayList<Prodotto>());
         listViewCarrello.setAdapter(customAdapter);
         prodotto = new Prodotto("Latte Parmalat", 1.00f);
         prodotto1 = new Prodotto("Fagioli bb", 2.00f);
-        prodotto2 = new Prodotto("Acqua Naturale", 0.90f);
+        prodotto2 = new Prodotto("Acqua Naturale Ginevra", 0.90f);
         arrayProdotti.add(prodotto);
         arrayProdotti.add(prodotto1);
         arrayProdotti.add(prodotto2);
@@ -94,8 +98,11 @@ public class Carrello extends FragmentActivity {
     }
 
     public void aggiungiProdotti(){
+        somma=0;
         customAdapter.clear();
         for(int i=0; i<arrayProdotti.size(); i++){
+            somma = somma+arrayProdotti.get(i).getPrezzo();
+            textSomma.setText(""+somma);
             customAdapter.add(arrayProdotti.get(i));
             customAdapter.notifyDataSetChanged();
         }
