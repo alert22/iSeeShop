@@ -17,7 +17,7 @@ public class IndicatorView extends FrameLayout {
     private int fontSize = 25;
     private TextView textTab;
     private boolean selected = false;
-    private int coloreLinea = Color.RED;
+    private int coloreLinea = Color.parseColor("#009999");
     private Paint _paint;
     private FrameLayout.LayoutParams params;
     private int grandezzaBarra = 10;
