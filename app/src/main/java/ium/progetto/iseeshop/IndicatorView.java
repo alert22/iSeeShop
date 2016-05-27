@@ -51,7 +51,6 @@ public class IndicatorView extends FrameLayout {
         if (selected) {
             textTab.setTypeface(Typeface.create(textTab.getTypeface(), Typeface.BOLD));
             _paint.setColor(coloreLinea);
-            //_paint.setShadowLayer(10,0,0,Color.BLACK); in caso metti
             _paint.setAlpha(255);
             canvas.drawRect(new Rect(0,getMeasuredHeight()-grandezzaBarra, getMeasuredWidth(),getMeasuredHeight()), _paint); //getMeasuredHeight()-grandezzaBarra
         } else {
