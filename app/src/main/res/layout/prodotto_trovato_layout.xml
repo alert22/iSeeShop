@@ -3,16 +3,21 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
+    <include layout="@layout/toolbar"/>
 <ImageButton
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
+    android:layout_width="80dp"
+    android:layout_height="80dp"
     android:layout_gravity="right"
+    android:background="@drawable/home"
+    android:layout_marginRight="@dimen/activity_horizontal_margin"
     />
     <ImageView
-        android:layout_width="150dp"
-        android:layout_height="150dp"
-        android:layout_gravity="center"/>
+        android:layout_width="170dp"
+        android:layout_height="170dp"
+        android:layout_gravity="center"
+        android:background="@drawable/latteparmalat"/>
     <ListView
+        android:id="@+id/listview"
         android:layout_width="wrap_content"
         android:layout_height="120dp"
         android:divider="#000000"
@@ -22,23 +27,32 @@
         >
 
     </ListView>
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="90dp"
+        android:orientation="horizontal"
+        android:layout_marginRight="@dimen/activity_horizontal_margin"
+        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+        >
         <ImageButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:background="@drawable/play"
             android:layout_gravity="left"/>
         <ImageButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"/>
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:background="@drawable/frecciasu"
+            android:layout_gravity="center"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true" />
         <ImageButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="right"/>
+            android:background="@drawable/carrello"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true" />
 
 
-    </LinearLayout>
+    </RelativeLayout>
 </LinearLayout>

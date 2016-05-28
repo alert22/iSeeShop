@@ -4,6 +4,7 @@ package ium.progetto.iseeshop;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.view.View;
@@ -25,7 +26,9 @@ public class Scansione extends FragmentActivity {
                         .setMessage(getString(R.string.textAlert)) //
                         .setPositiveButton(getString(R.string.showProduct), new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
-                                // TODO
+
+                                Intent prodottoTrovato = new Intent(getApplication(),ProdottoTrovato.class);
+                                startActivity(prodottoTrovato);
                                 dialog.dismiss();
                             }
                         }) //

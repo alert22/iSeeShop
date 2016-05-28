@@ -2,11 +2,8 @@ package ium.progetto.iseeshop;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
-import android.graphics.Canvas;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -22,7 +19,7 @@ public class Carrello extends FragmentActivity {
 
     private ListView listViewCarrello;
     private TextView textSomma;
-    CustomAdapter customAdapter;
+    CustomAdapterCarrello customAdapterCarrello;
     ArrayList<Prodotto> arrayProdotti;
     private Prodotto prodotto;
     private Prodotto prodotto1;
@@ -37,13 +34,13 @@ public class Carrello extends FragmentActivity {
         arrayProdotti = new ArrayList<>();
         listViewCarrello = (ListView) findViewById(R.id.listaProdotti);
         textSomma = (TextView) findViewById(R.id.somma);
-        customAdapter = new CustomAdapter(this, R.layout.list_element, new ArrayList<Prodotto>());
-        listViewCarrello.setAdapter(customAdapter);
+        customAdapterCarrello = new CustomAdapterCarrello(this, R.layout.list_element, new ArrayList<Prodotto>());
+        listViewCarrello.setAdapter(customAdapterCarrello);
 
         //Creazione Prodotti
-        prodotto = new Prodotto("Latte Parmalat", 1.00f);
-        prodotto1 = new Prodotto("Fagioli bb", 2.00f);
-        prodotto2 = new Prodotto("Acqua Naturale Ginevra", 0.90f);
+        prodotto = new Prodotto("Latte Parmalat", 1.00f, "Parmalat", "28/06/16", "28/05/2016");
+        prodotto1 = new Prodotto("Fagioli Mersi", 2.00f, "Azienda Martea", "29/06/17", "28/05/2016");
+        prodotto2 = new Prodotto("Acqua Naturale Ginevra", 0.90f, "Ginevra", "28/06/16", "28/05/2019");
         arrayProdotti.add(prodotto);
         arrayProdotti.add(prodotto1);
         arrayProdotti.add(prodotto2);
@@ -110,12 +107,13 @@ public class Carrello extends FragmentActivity {
 
     public void aggiungiProdotti(){
         somma=0;
-        customAdapter.clear();
+        customAdapterCarrello.clear();
         for(int i=0; i<arrayProdotti.size(); i++){
             somma = somma+arrayProdotti.get(i).getPrezzo();
-            textSomma.setText(""+somma);
-            customAdapter.add(arrayProdotti.get(i));
-            customAdapter.notifyDataSetChanged();
+            customAdapterCarrello.add(arrayProdotti.get(i));
         }
+        customAdapterCarrello.notifyDataSetChanged();
+        float f = (float) (Math.round( somma * Math.pow( 10, 2 ) )/Math.pow( 10, 2 ));
+        textSomma.setText(""+f);
     }
 }

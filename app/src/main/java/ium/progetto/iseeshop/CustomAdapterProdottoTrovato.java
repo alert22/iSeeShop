@@ -10,13 +10,13 @@ import android.widget.TextView;
 import java.util.List;
 
 /**
- * Created by Utente on 20/04/2016.
+ * Created by Alina on 20/04/2016.
  */
-public class CustomAdapter extends ArrayAdapter<Prodotto> {
+public class CustomAdapterProdottoTrovato extends ArrayAdapter<String> {
     private int resource;
     private LayoutInflater inflater;
 
-    public CustomAdapter(Context context, int resourceId, List<Prodotto> objects) {
+    public CustomAdapterProdottoTrovato(Context context, int resourceId, List<String> objects) {
         super(context, resourceId, objects);
         resource = resourceId;
         inflater = LayoutInflater.from(context);//Crea un'istanza di un file XML di layout nella corrispondente View
@@ -25,19 +25,18 @@ public class CustomAdapter extends ArrayAdapter<Prodotto> {
     @Override
     public View getView(int position, View v, ViewGroup parent) {
         if (v == null) {
-            v = inflater.inflate(R.layout.list_element, parent, false);
+            v = inflater.inflate(R.layout.list_element_prodotto_trovato, parent, false);
         }
 
-        Prodotto sq = getItem(position);
+        String string = getItem(position);
 
         TextView nomeTextView;
-        TextView prezzoTextView;
 
 
         nomeTextView = (TextView) v.findViewById(R.id.nome);
-        prezzoTextView = (TextView) v.findViewById(R.id.prezzo);
-        nomeTextView.setText(sq.getNome());
-        prezzoTextView.setText(""+sq.getPrezzo());
+
+        nomeTextView.setText(string);
+
 
 
         return v;

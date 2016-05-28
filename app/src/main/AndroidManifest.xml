@@ -32,7 +32,12 @@
                 <action android:name="android.intent.action.VIEW" />
             </intent-filter>
         </activity>
-
+    <activity android:name=".ProdottoTrovato"
+        android:label="@string/app_name" >
+        <intent-filter>
+            <action android:name="android.intent.action.VIEW" />
+        </intent-filter>
+    </activity>
         <activity
             android:name=".Carrello"
             android:label="@string/app_name" >

@@ -12,7 +12,7 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentStart="true">
     <TextView
-        android:text="Nome Prodotto dbhcbsjbj  sjdbb sjbx"
+        android:text="Nome Prodotto"
         android:id="@+id/nome"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
