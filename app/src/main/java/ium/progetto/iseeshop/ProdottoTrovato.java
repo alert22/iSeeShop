@@ -51,5 +51,8 @@ public class ProdottoTrovato extends Activity {
 
     }
 
+    public void showPopup(View v) {
+        CustomPopup.show(this, v);
+    }
 
 }
