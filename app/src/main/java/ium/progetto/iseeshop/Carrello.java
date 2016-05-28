@@ -1,7 +1,9 @@
 package ium.progetto.iseeshop;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.text.Html;
@@ -23,6 +25,7 @@ public class Carrello extends FragmentActivity {
     private TextView textSomma;
     CustomAdapterCarrello customAdapterCarrello;
     ArrayList<Prodotto> arrayProdotti;
+    SharedPreferences sp;
     ImageButton cestino;
     private Prodotto prodotto;
     private Prodotto prodotto1;
@@ -41,10 +44,16 @@ public class Carrello extends FragmentActivity {
         customAdapterCarrello = new CustomAdapterCarrello(this, R.layout.list_element, new ArrayList<Prodotto>());
         listViewCarrello.setAdapter(customAdapterCarrello);
 
+        sp = getSharedPreferences("Prodotti", Context.MODE_PRIVATE);
+        final SharedPreferences.Editor editor = sp.edit();
+
         //Creazione Prodotti
-        prodotto = new Prodotto("Latte Parmalat", 1.00f, "Parmalat", "28/06/16", "28/05/2016");
-        prodotto1 = new Prodotto("Fagioli Mersi", 2.00f, "Azienda Martea", "29/06/17", "28/05/2016");
+        prodotto = new Prodotto("Pasta Barilla", 1.20f, "Barilla", "29/06/16", "28/05/2018");
+        prodotto1 = new Prodotto("Fagioli Mersì", 2.00f, "Azienda Martea", "29/06/17", "28/05/2016");
         prodotto2 = new Prodotto("Acqua Naturale Ginevra", 0.90f, "Ginevra", "28/06/16", "28/05/2019");
+
+
+
         arrayProdotti.add(prodotto);
         arrayProdotti.add(prodotto1);
         arrayProdotti.add(prodotto2);
@@ -52,12 +61,19 @@ public class Carrello extends FragmentActivity {
         arrayProdotti.add(prodotto2);
         arrayProdotti.add(prodotto2);
         arrayProdotti.add(prodotto2);
-        arrayProdotti.add(prodotto2);
-        arrayProdotti.add(prodotto2);
-        arrayProdotti.add(prodotto2);
+        String nuovoNome=null;
+        int i =1;
+        while(nuovoNome!=null || i==1) {
+            nuovoNome = sp.getString("" + i, null);
+            float nuovoPrezzo = sp.getFloat(nuovoNome, 0);
+            i++;
+            if (nuovoNome != null) {
+                arrayProdotti.add(new Prodotto(nuovoNome, nuovoPrezzo, null, null, null));
+            }
+        }
         aggiungiProdotti();
 
-        //OnClick listenr per eliminazione item
+        //OnClick listener per eliminazione item
 
         listViewCarrello.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
@@ -75,7 +91,6 @@ public class Carrello extends FragmentActivity {
                         }) //
                         .setNegativeButton(getString(R.string.ignoreDeleteProduct), new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
-                                // TODO
                                 dialog.dismiss();
 
                             }
@@ -97,13 +112,14 @@ public class Carrello extends FragmentActivity {
                                 arrayProdotti.clear();
                                 customAdapterCarrello.clear();
                                 textSomma.setText("0");
+                                editor.clear();
+                                editor.commit();
                                 dialog.dismiss();
 
                             }
                         }) //
                         .setNegativeButton(getString(R.string.ignoreDeleteProduct), new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
-                                // TODO
                                 dialog.dismiss();
 
                             }
