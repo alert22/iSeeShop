@@ -5,6 +5,7 @@
     android:orientation="vertical">
     <include layout="@layout/toolbar"/>
 <ImageButton
+    android:id="@+id/home"
     android:layout_width="80dp"
     android:layout_height="80dp"
     android:layout_gravity="right"
@@ -12,6 +13,7 @@
     android:layout_marginRight="@dimen/activity_horizontal_margin"
     />
     <ImageView
+        android:id="@+id/imgProdotto"
         android:layout_width="170dp"
         android:layout_height="170dp"
         android:layout_gravity="center"
@@ -35,11 +37,13 @@
         android:layout_marginLeft="@dimen/activity_horizontal_margin"
         >
         <ImageButton
+            android:id="@+id/play"
             android:layout_width="80dp"
             android:layout_height="80dp"
             android:background="@drawable/play"
             android:layout_gravity="left"/>
         <ImageButton
+            android:id="@+id/frecciasu"
             android:layout_width="80dp"
             android:layout_height="80dp"
             android:background="@drawable/frecciasu"
@@ -47,6 +51,7 @@
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true" />
         <ImageButton
+            android:id="@+id/carrello"
             android:background="@drawable/carrello"
             android:layout_width="80dp"
             android:layout_height="80dp"

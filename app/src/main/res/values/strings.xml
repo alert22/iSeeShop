@@ -8,11 +8,14 @@
     <string name="action_info">Info</string>
     <string name="euro">\€</string>
     <string name="titleAlert">Prodotto Trovato</string>
+    <string name="titleAlertSvuota">Svuotare carrello</string>
     <string name="showProduct">Mostra</string>
     <string name="ignoreProduct">Ignora</string>
     <string name="textAlert">Procedere alla visualizzasione del prodotto?</string>
     <string name="textAlertDelete">Procedere alla eliminazione del prodotto?</string>
+    <string name="deleteCarrello">Sei sicuro di voler svuotare il carrello?</string>
     <string name="deleteProduct">Elimina</string>
     <string name="ignoreDeleteProduct">Annulla</string>
+    <string name="si">Sì</string>
     <string name="titleAlertDelete">Eliminare prodotto</string>
 </resources>

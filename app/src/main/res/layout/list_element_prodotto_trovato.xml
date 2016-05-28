@@ -6,9 +6,8 @@
     android:layout_marginTop="5dp"
     >
 
-
     <TextView
-        android:text="Nome Prodotto"
+        android:text="Nome"
         android:id="@+id/nome"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -17,11 +16,11 @@
         android:textSize="@dimen/font_size"
         android:layout_margin="10dp"
         android:textAlignment="center"
-        android:textColor="#3b4544"
+        android:layout_centerHorizontal="true"
+        android:textColor="@color/TextColor"
         android:typeface = "serif"
         android:textAppearance="@style/Base.Widget.AppCompat.Spinner.Underlined"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_alignParentTop="true" />
 
 
 </RelativeLayout>

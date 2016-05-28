@@ -1,0 +1,6 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <color name="TextColor" >#3b4544</color>
+    <color name="IconColor">#387d76</color>
+</resources>
