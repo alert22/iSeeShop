@@ -34,7 +34,9 @@
         android:gravity="center"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
-        android:layout_alignBottom="@+id/lay">
+        android:layout_alignBottom="@+id/lay"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="10dp">
 
         <TextView
             android:text="Prezzo"
@@ -62,7 +64,7 @@
             android:textColor="#3b4544"
             android:typeface = "serif"
             android:textAppearance="@style/Base.Widget.AppCompat.Spinner.Underlined"
-            android:text=" Euro"
+            android:text=" €"
             android:id="@+id/textView"
             android:layout_below="@+id/linearLayout"
             android:layout_toEndOf="@+id/prezzo" />

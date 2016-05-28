@@ -40,13 +40,19 @@ public class Carrello extends FragmentActivity {
         customAdapter = new CustomAdapter(this, R.layout.list_element, new ArrayList<Prodotto>());
         listViewCarrello.setAdapter(customAdapter);
 
-
         //Creazione Prodotti
         prodotto = new Prodotto("Latte Parmalat", 1.00f);
         prodotto1 = new Prodotto("Fagioli bb", 2.00f);
         prodotto2 = new Prodotto("Acqua Naturale Ginevra", 0.90f);
         arrayProdotti.add(prodotto);
         arrayProdotti.add(prodotto1);
+        arrayProdotti.add(prodotto2);
+        arrayProdotti.add(prodotto2);
+        arrayProdotti.add(prodotto2);
+        arrayProdotti.add(prodotto2);
+        arrayProdotti.add(prodotto2);
+        arrayProdotti.add(prodotto2);
+        arrayProdotti.add(prodotto2);
         arrayProdotti.add(prodotto2);
         aggiungiProdotti();
 
