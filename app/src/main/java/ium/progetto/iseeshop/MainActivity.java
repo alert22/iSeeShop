@@ -19,7 +19,7 @@ import android.widget.TabHost;
 
 public class MainActivity extends ActivityGroup {
 
-    SharedPreferences sp;//serve per eliminare il prodotto(latte) dalle preferenze all'avvio dell'app
+
     int mainColorApp = Color.parseColor("#075e55");
 
     @Override
@@ -35,9 +35,7 @@ public class MainActivity extends ActivityGroup {
                 new ActivityManager.TaskDescription("iSeeShop", bm, mainColorApp);
         this.setTaskDescription(taskDesc);
 
-        sp = getSharedPreferences("Prodotti", Context.MODE_PRIVATE);
-        final SharedPreferences.Editor editor = sp.edit();
-        editor.clear().apply();
+
 
         //Set colore barra di stato
 
