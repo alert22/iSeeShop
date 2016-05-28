@@ -3,7 +3,7 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="#387d76">
+    android:background="@color/IconColor">
 
     <FrameLayout
         android:layout_width="match_parent"

@@ -4,10 +4,12 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
+import android.text.Html;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 import java.util.ArrayList;
@@ -21,6 +23,7 @@ public class Carrello extends FragmentActivity {
     private TextView textSomma;
     CustomAdapterCarrello customAdapterCarrello;
     ArrayList<Prodotto> arrayProdotti;
+    ImageButton cestino;
     private Prodotto prodotto;
     private Prodotto prodotto1;
     private Prodotto prodotto2;
@@ -32,6 +35,7 @@ public class Carrello extends FragmentActivity {
         setContentView(R.layout.carrello_layout);
 
         arrayProdotti = new ArrayList<>();
+        cestino = (ImageButton) findViewById(R.id.cestino);
         listViewCarrello = (ListView) findViewById(R.id.listaProdotti);
         textSomma = (TextView) findViewById(R.id.somma);
         customAdapterCarrello = new CustomAdapterCarrello(this, R.layout.list_element, new ArrayList<Prodotto>());
@@ -79,6 +83,32 @@ public class Carrello extends FragmentActivity {
                 builder.show();
                 return true;
 
+            }
+        });
+
+        cestino.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
+                builder.setTitle(getString(R.string.titleAlertSvuota)) //
+                        .setMessage(getString(R.string.deleteCarrello)) //
+                        .setPositiveButton(getString(R.string.si), new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                arrayProdotti.clear();
+                                customAdapterCarrello.clear();
+                                textSomma.setText("0");
+                                dialog.dismiss();
+
+                            }
+                        }) //
+                        .setNegativeButton(getString(R.string.ignoreDeleteProduct), new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                // TODO
+                                dialog.dismiss();
+
+                            }
+                        });
+                builder.show();
             }
         });
     }
