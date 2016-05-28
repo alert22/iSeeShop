@@ -8,12 +8,13 @@ import android.widget.Toast;
 /**
  * Created by robin on 28/05/2016.
  */
+
 public class PopupItemListner implements PopupMenu.OnMenuItemClickListener {
 
     Context c;
     public void setContext(Context c) {
         this.c = c;
-    }
+    } 
 
     @Override
     public boolean onMenuItemClick(MenuItem item) {
