@@ -2,14 +2,18 @@ package ium.progetto.iseeshop;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ListView;
 
 import java.util.ArrayList;
 
 /**
  * Created by Alina on 28/05/2016.
- */
+ */ 
 public class ProdottoTrovato extends Activity {
+
+
+
 
     ListView listViewProdotto;
     CustomAdapterProdottoTrovato customAdapter;
@@ -32,5 +36,8 @@ public class ProdottoTrovato extends Activity {
         customAdapter.notifyDataSetChanged();
     }
 
+    public void showPopup(View v) {
+        CustomPopup.show(this, v);
+    }
 
 }

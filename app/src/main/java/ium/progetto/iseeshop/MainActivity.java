@@ -18,7 +18,7 @@ import android.widget.TabHost;
 public class MainActivity extends ActivityGroup {
 
 
-    int mainColorApp = Color.parseColor("#ffb74d");
+    int mainColorApp = Color.parseColor("#075e55");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,10 +86,7 @@ public class MainActivity extends ActivityGroup {
 
 
     public void showPopup(View v) {
-        PopupMenu popup = new PopupMenu(this, v);
-        MenuInflater inflater = popup.getMenuInflater();
-        inflater.inflate(R.menu.menu_main, popup.getMenu());
-        popup.show();
+        CustomPopup.show(this, v);
     }
 
 }
