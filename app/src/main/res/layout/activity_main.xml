@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity"
     android:orientation="vertical">
-    <include layout="@layout/toolbar"/>
+    <include layout="@layout/toolbar_home_off"/>
     <TabHost
         android:id="@+id/tabHost"
         android:layout_width="match_parent"

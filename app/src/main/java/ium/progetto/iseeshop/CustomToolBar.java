@@ -1,17 +1,20 @@
 package ium.progetto.iseeshop;
 
+import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
+import android.support.annotation.Nullable;
 import android.support.v7.widget.PopupMenu;
+import android.text.Layout;
+import android.util.AttributeSet;
 import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
-import android.widget.Toast;
+import android.widget.LinearLayout;
 
 /**
  * Created by robin on 28/05/2016.
  */
-public class CustomToolBar {
+public class CustomToolBar extends Activity {
+
 
     public static void show(Context c, View v) {
         PopupMenu popup = new PopupMenu(c, v);

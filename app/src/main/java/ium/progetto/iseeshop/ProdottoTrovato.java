@@ -15,7 +15,7 @@ import java.util.ArrayList;
 /**
  * Created by Alina on 28/05/2016.
  */
-public class ProdottoTrovato extends Activity {
+public class ProdottoTrovato extends Activity implements customToolBarInterface {
 
     ListView listViewProdotto;
     CustomAdapterProdottoTrovato customAdapter;
@@ -89,6 +89,13 @@ public class ProdottoTrovato extends Activity {
         });
     }
 
+
+    @Override
+    public void goHome(View v) {
+            this.finish();
+    }
+
+    @Override
     public void showPopup(View v) {
         CustomToolBar.show(this, v);
     }

@@ -15,7 +15,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/app_name"
-            android:textSize="25dp" 
+            android:textSize="25dp"
             android:textColor="#ffffff"
             android:layout_gravity="left"
             android:layout_marginLeft="10dp"/>
@@ -50,15 +50,18 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:layout_gravity="right"
-        android:onClick="showPopup"
+        android:onClick="goHome"
         android:background="@drawable/ripple"
         android:layout_toStartOf="@+id/linearLayout2"
         android:layout_alignBottom="@+id/linearLayout2"
-        android:layout_alignTop="@+id/linearLayout2">
+        android:layout_alignTop="@+id/linearLayout2"
+        android:layout_marginRight="5dp"
+        android:id="@+id/homeLayout">
 
         <ImageView
             android:layout_width="50dp"
             android:layout_height="30dp"
+            android:layout_gravity="center"
             android:src="@drawable/homeblanck"
             android:layout_alignParentBottom="true"
             android:layout_alignParentStart="true" />

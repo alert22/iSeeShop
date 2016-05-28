@@ -15,7 +15,7 @@ import android.view.WindowManager;
 import android.widget.TabHost;
 
 
-public class MainActivity extends ActivityGroup {
+public class MainActivity extends ActivityGroup implements customToolBarInterface {
 
 
     int mainColorApp = Color.parseColor("#075e55");
@@ -87,6 +87,12 @@ public class MainActivity extends ActivityGroup {
     }
 
 
+    @Override
+    public void goHome(View v) {
+
+    }
+
+    @Override
     public void showPopup(View v) {
         CustomToolBar.show(this, v);
     }

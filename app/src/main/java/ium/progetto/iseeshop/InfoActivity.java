@@ -3,13 +3,14 @@ package ium.progetto.iseeshop;
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 /**
  * Created by robin on 28/05/2016.
  */
 
-public class InfoActivity extends Activity {
+public class InfoActivity extends Activity implements customToolBarInterface{
 
     TextView testoInfo;
     String testoInfoStr = "Lorem ipsum dolor sit amet, consectetur adipisci elit," +
@@ -28,6 +29,11 @@ public class InfoActivity extends Activity {
         testoInfo = (TextView) findViewById(R.id.textInfo);
         testoInfoStr += testoInfoStr;
         testoInfo.setText(testoInfoStr);
+    }
+
+    @Override
+    public void goHome(View v) {
+            this.finish();
     }
 
     public void showPopup(View v) {
