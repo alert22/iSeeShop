@@ -1,7 +1,7 @@
 package ium.progetto.iseeshop;
 
-import android.app.Activity;
 import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ListView;
@@ -11,7 +11,7 @@ import java.util.ArrayList;
 /**
  * Created by Alina on 28/05/2016.
  */
-public class ProdottoTrovato extends Activity {
+public class ProdottoTrovato extends FragmentActivity {
 
     ListView listViewProdotto;
     CustomAdapterProdottoTrovato customAdapter;
@@ -22,6 +22,7 @@ public class ProdottoTrovato extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.prodotto_trovato_layout);
+
         listViewProdotto = (ListView) findViewById(R.id.listview);
         customAdapter = new CustomAdapterProdottoTrovato(this,R.layout.list_element_prodotto_trovato, new ArrayList<String>());
         listViewProdotto.setAdapter(customAdapter);
