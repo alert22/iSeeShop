@@ -12,7 +12,7 @@ import android.widget.TextView;
 
 public class InfoActivity extends Activity {
 
-    TextView testoInfo;
+    TextView testoInfo; 
     String testoInfoStr = "Lorem ipsum dolor sit amet, consectetur adipisci elit," +
             " sed eiusmod tempor incidunt ut labore et dolore magna aliqua. Ut" +
             " enim ad minim veniam, quis nostrum exercitationem ullam corporis" +
