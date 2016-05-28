@@ -11,7 +11,7 @@ import android.widget.Toast;
 /**
  * Created by robin on 28/05/2016.
  */
-public class CustomPopup {
+public class CustomToolBar {
 
     public static void show(Context c, View v) {
         PopupMenu popup = new PopupMenu(c, v);
@@ -21,8 +21,6 @@ public class CustomPopup {
         PopupItemListner pil = new PopupItemListner();
         pil.setContext(c);
         popup.setOnMenuItemClickListener(pil);
-
-
     }
 
 }

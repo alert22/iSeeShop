@@ -5,15 +5,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
-import java.util.Map;
-import java.util.Set;
 
 /**
  * Created by Alina on 28/05/2016.
@@ -93,7 +90,7 @@ public class ProdottoTrovato extends Activity {
     }
 
     public void showPopup(View v) {
-        CustomPopup.show(this, v);
+        CustomToolBar.show(this, v);
     }
 
 }

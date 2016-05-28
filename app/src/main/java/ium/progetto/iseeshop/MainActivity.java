@@ -9,8 +9,6 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.support.v7.widget.PopupMenu;
-import android.view.MenuInflater;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -92,7 +90,7 @@ public class MainActivity extends ActivityGroup {
 
 
     public void showPopup(View v) {
-        CustomPopup.show(this, v);
+        CustomToolBar.show(this, v);
     }
 
 }

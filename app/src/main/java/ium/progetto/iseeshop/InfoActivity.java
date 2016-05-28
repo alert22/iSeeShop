@@ -2,7 +2,6 @@ package ium.progetto.iseeshop;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
 import android.view.View;
 import android.widget.TextView;
 
@@ -12,7 +11,7 @@ import android.widget.TextView;
 
 public class InfoActivity extends Activity {
 
-    TextView testoInfo; 
+    TextView testoInfo;
     String testoInfoStr = "Lorem ipsum dolor sit amet, consectetur adipisci elit," +
             " sed eiusmod tempor incidunt ut labore et dolore magna aliqua. Ut" +
             " enim ad minim veniam, quis nostrum exercitationem ullam corporis" +
@@ -32,6 +31,6 @@ public class InfoActivity extends Activity {
     }
 
     public void showPopup(View v) {
-        CustomPopup.show(this, v);
+        CustomToolBar.show(this, v);
     }
 }
