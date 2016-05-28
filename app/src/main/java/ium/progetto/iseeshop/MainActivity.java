@@ -18,23 +18,27 @@ import android.widget.TabHost;
 public class MainActivity extends ActivityGroup {
 
 
+    int mainColorApp = Color.parseColor("#ffb74d");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        //crezione barra custom per il task manager
+
         Bitmap bm = BitmapFactory.decodeResource(getResources(),
                 R.drawable.ic_launcher);
         ActivityManager.TaskDescription taskDesc =
-                new ActivityManager.TaskDescription("iSeeShop", bm, Color.parseColor("#075e55"));
+                new ActivityManager.TaskDescription("iSeeShop", bm, mainColorApp);
         this.setTaskDescription(taskDesc);
 
+        //Set colore barra di stato
 
         Window window = getWindow();
         window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-        window.setStatusBarColor(Color.parseColor("#075e55"));
+        window.setStatusBarColor(mainColorApp); //ffb74d 075e55
 
         Intent scansione = new Intent(this, Scansione.class);
         Intent carrello = new Intent(this, Carrello.class);
