@@ -7,17 +7,12 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.PopupMenu;
-import android.support.v7.widget.Toolbar;
-import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.TabHost;
-
-
 
 
 public class MainActivity extends ActivityGroup {
@@ -32,7 +27,7 @@ public class MainActivity extends ActivityGroup {
         Bitmap bm = BitmapFactory.decodeResource(getResources(),
                 R.drawable.ic_launcher);
         ActivityManager.TaskDescription taskDesc =
-                new ActivityManager.TaskDescription("iSeeShop",bm, Color.parseColor("#075e55") );
+                new ActivityManager.TaskDescription("iSeeShop", bm, Color.parseColor("#075e55"));
         this.setTaskDescription(taskDesc);
 
 
@@ -45,8 +40,7 @@ public class MainActivity extends ActivityGroup {
         Intent carrello = new Intent(this, Carrello.class);
 
 
-
-        TabHost host = (TabHost)findViewById(R.id.tabHost);
+        TabHost host = (TabHost) findViewById(R.id.tabHost);
         host.setup(this.getLocalActivityManager());
 
         final IndicatorView indicatore1 = new IndicatorView(getApplicationContext());
@@ -84,9 +78,8 @@ public class MainActivity extends ActivityGroup {
         });
         host.addTab(spec);
 
-
-
     }
+
 
     public void showPopup(View v) {
         PopupMenu popup = new PopupMenu(this, v);

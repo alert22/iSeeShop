@@ -2,17 +2,17 @@ package ium.progetto.iseeshop;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.graphics.Canvas;
 import android.os.Bundle;
-import android.os.SystemClock;
 import android.support.v4.app.FragmentActivity;
+import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.TabHost;
 import android.widget.TextView;
-
 import java.util.ArrayList;
 
 /**
@@ -37,8 +37,11 @@ public class Carrello extends FragmentActivity {
         arrayProdotti = new ArrayList<>();
         listViewCarrello = (ListView) findViewById(R.id.listaProdotti);
         textSomma = (TextView) findViewById(R.id.somma);
-        customAdapter=new CustomAdapter(this, R.layout.list_element, new ArrayList<Prodotto>());
+        customAdapter = new CustomAdapter(this, R.layout.list_element, new ArrayList<Prodotto>());
         listViewCarrello.setAdapter(customAdapter);
+
+
+        //Creazione Prodotti
         prodotto = new Prodotto("Latte Parmalat", 1.00f);
         prodotto1 = new Prodotto("Fagioli bb", 2.00f);
         prodotto2 = new Prodotto("Acqua Naturale Ginevra", 0.90f);
@@ -46,6 +49,8 @@ public class Carrello extends FragmentActivity {
         arrayProdotti.add(prodotto1);
         arrayProdotti.add(prodotto2);
         aggiungiProdotti();
+
+        //OnClick listenr per eliminazione item
 
         listViewCarrello.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override

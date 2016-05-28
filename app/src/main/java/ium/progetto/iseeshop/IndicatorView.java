@@ -6,7 +6,6 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.graphics.Typeface;
-import android.renderscript.Type;
 import android.view.Gravity;
 import android.widget.FrameLayout;
 import android.widget.TextView;
@@ -38,6 +37,7 @@ public class IndicatorView extends FrameLayout {
         this.setClickable(true);
         this.setBackground(getResources().getDrawable(R.drawable.ripple));
         invalidate();
+
     }
 
     @Override

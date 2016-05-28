@@ -9,7 +9,7 @@
         android:background="#fefdff">
         <View
             android:id="@+id/shadow"
-            android:layout_width="fill_parent"
+            android:layout_width="match_parent"
             android:layout_height="5dp"
             android:background="@drawable/ombra"
             android:layout_gravity="top">
