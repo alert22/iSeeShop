@@ -4,15 +4,14 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
     <include layout="@layout/toolbar_home_on"/>
-<ImageButton
-    android:id="@+id/home"
-    android:layout_width="80dp"
-    android:layout_height="80dp"
-    android:layout_gravity="right"
-    android:background="@drawable/home"
-    android:layout_marginRight="@dimen/activity_horizontal_margin"
-    />
+    <View
+        android:id="@+id/shadow"
+        android:layout_width="match_parent"
+        android:layout_height="5dp"
+        android:background="@drawable/ombra"
+        android:layout_gravity="top"></View>
     <ImageView
+        android:layout_marginTop="10dp"
         android:id="@+id/imgProdotto"
         android:layout_width="170dp"
         android:layout_height="170dp"
@@ -25,10 +24,40 @@
         android:divider="#3b4544"
         android:dividerHeight="1dp"
         android:layout_weight="20"
-        android:layout_margin="10dp"
-        >
-
+        android:layout_margin="10dp">
     </ListView>
+    <View
+        android:layout_margin="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@android:color/darker_gray"/>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal|center_vertical"
+        android:layout_margin="5dp">
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="-"
+            android:layout_marginRight="10dp"/>
+        <EditText
+            android:layout_width="60dp"
+            android:layout_height="wrap_content"
+            android:text="1"
+            android:gravity="center_horizontal"
+            android:inputType="numberDecimal"/>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="+"
+            android:layout_marginLeft="10dp"/>
+    </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@android:color/darker_gray"
+        android:layout_margin="5dp"/>
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="90dp"
@@ -57,7 +86,5 @@
             android:layout_height="80dp"
             android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true" />
-
-
     </RelativeLayout>
 </LinearLayout>

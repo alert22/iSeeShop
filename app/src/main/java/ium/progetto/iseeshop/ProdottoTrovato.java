@@ -1,11 +1,16 @@
 package ium.progetto.iseeshop;
 
 import android.app.Activity;
+import android.app.ActivityManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -30,11 +35,24 @@ public class ProdottoTrovato extends Activity implements customToolBarInterface 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.prodotto_trovato_layout);
+
+        Bitmap bm = BitmapFactory.decodeResource(getResources(),
+                R.drawable.ic_launcher);
+        ActivityManager.TaskDescription taskDesc =
+                new ActivityManager.TaskDescription("iSeeShop", bm, getResources().getColor(R.color.coloreStatusBar));
+        this.setTaskDescription(taskDesc);
+
+        //Set colore barra di stato
+
+        Window window = getWindow();
+        window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+        window.setStatusBarColor(getResources().getColor(R.color.coloreStatusBar));
+
         listViewProdotto = (ListView) findViewById(R.id.listview);
         customAdapter = new CustomAdapterProdottoTrovato(this,R.layout.list_element_prodotto_trovato, new ArrayList<String>());
         listViewProdotto.setAdapter(customAdapter);
         play = (ImageButton) findViewById(R.id.play);
-        home = (ImageButton) findViewById(R.id.home);
         addCarrello =(ImageButton) findViewById(R.id.carrello);
 
         sp = getSharedPreferences("Prodotti", Context.MODE_PRIVATE);
@@ -52,7 +70,6 @@ public class ProdottoTrovato extends Activity implements customToolBarInterface 
         customAdapter.add(""+prodotto.getPrezzo()+"€");
         customAdapter.add("Elemento 2/5");
         customAdapter.notifyDataSetChanged();
-
         play.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -65,15 +82,6 @@ public class ProdottoTrovato extends Activity implements customToolBarInterface 
                 }
             }
         });
-
-        home.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent scansione = new Intent(getApplication(),MainActivity.class);
-                startActivity(scansione);
-            }
-        });
-
 
         addCarrello.setOnClickListener(new View.OnClickListener() {
             @Override

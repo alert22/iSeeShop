@@ -18,8 +18,6 @@ import android.widget.TabHost;
 public class MainActivity extends ActivityGroup implements customToolBarInterface {
 
 
-    int mainColorApp = Color.parseColor("#075e55");
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,7 +28,7 @@ public class MainActivity extends ActivityGroup implements customToolBarInterfac
         Bitmap bm = BitmapFactory.decodeResource(getResources(),
                 R.drawable.ic_launcher);
         ActivityManager.TaskDescription taskDesc =
-                new ActivityManager.TaskDescription("iSeeShop", bm, mainColorApp);
+                new ActivityManager.TaskDescription("iSeeShop", bm, getResources().getColor(R.color.coloreStatusBar));
         this.setTaskDescription(taskDesc);
 
 
@@ -40,7 +38,7 @@ public class MainActivity extends ActivityGroup implements customToolBarInterfac
         Window window = getWindow();
         window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-        window.setStatusBarColor(mainColorApp); //ffb74d 075e55
+        window.setStatusBarColor(getResources().getColor(R.color.coloreStatusBar)); //ffb74d 075e55
 
         Intent scansione = new Intent(this, Scansione.class);
         Intent carrello = new Intent(this, Carrello.class);
