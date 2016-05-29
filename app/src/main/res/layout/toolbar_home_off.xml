@@ -26,7 +26,8 @@
             android:layout_gravity="right"
             android:onClick="showPopup"
             android:background="@drawable/ripple"
-            android:id="@+id/carrelloIconaLayout">
+            android:id="@+id/carrelloIconaLayout"
+            android:gravity="center">
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
