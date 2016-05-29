@@ -13,6 +13,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -28,6 +29,7 @@ public class ProdottoTrovato extends Activity implements customToolBarInterface 
     Prodotto prodotto;
     SharedPreferences sp;
     int contatoreProdottiAggiunti =0;
+    TextView nomeActivity;
 
     ImageButton play, home, addCarrello;
     boolean iconaPlay = true;
@@ -35,6 +37,10 @@ public class ProdottoTrovato extends Activity implements customToolBarInterface 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.prodotto_trovato_layout);
+
+
+        nomeActivity = (TextView)findViewById(R.id.nomeActivity);
+        nomeActivity.setText("Dettaglio Prodotto");
 
         Bitmap bm = BitmapFactory.decodeResource(getResources(),
                 R.drawable.ic_launcher);

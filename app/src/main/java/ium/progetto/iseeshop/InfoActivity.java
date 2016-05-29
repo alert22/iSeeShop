@@ -18,6 +18,8 @@ import android.widget.TextView;
 public class InfoActivity extends Activity implements customToolBarInterface{
 
     TextView testoInfo;
+    TextView nomeActivity;
+
     String testoInfoStr = "Lorem ipsum dolor sit amet, consectetur adipisci elit," +
             " sed eiusmod tempor incidunt ut labore et dolore magna aliqua. Ut" +
             " enim ad minim veniam, quis nostrum exercitationem ullam corporis" +
@@ -31,6 +33,9 @@ public class InfoActivity extends Activity implements customToolBarInterface{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.info_layout);
+
+        nomeActivity = (TextView)findViewById(R.id.nomeActivity);
+        nomeActivity.setText("Info");
 
         Bitmap bm = BitmapFactory.decodeResource(getResources(),
                 R.drawable.ic_launcher);
