@@ -4,14 +4,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
     <include layout="@layout/toolbar_home_on"/>
-<ImageButton
-    android:id="@+id/home"
-    android:layout_width="80dp"
-    android:layout_height="80dp"
-    android:layout_gravity="right"
-    android:background="@drawable/home"
-    android:layout_marginRight="@dimen/activity_horizontal_margin"
-    />
+
     <ImageView
         android:id="@+id/imgProdotto"
         android:layout_width="170dp"
@@ -23,6 +16,7 @@
         android:layout_width="wrap_content"
         android:layout_height="120dp"
         android:divider="#3b4544"
+        android:textAlignment="center"
         android:dividerHeight="1dp"
         android:layout_weight="20"
         android:layout_margin="10dp"

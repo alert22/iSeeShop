@@ -59,8 +59,8 @@
         android:id="@+id/homeLayout">
 
         <ImageView
-            android:layout_width="50dp"
-            android:layout_height="30dp"
+            android:layout_width="55dp"
+            android:layout_height="35dp"
             android:layout_gravity="center"
             android:src="@drawable/homeblanck"
             android:layout_alignParentBottom="true"

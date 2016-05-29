@@ -24,7 +24,7 @@ public class ProdottoTrovato extends Activity implements customToolBarInterface 
     SharedPreferences sp;
     int contatoreProdottiAggiunti =0;
 
-    ImageButton play, home, addCarrello;
+    ImageButton play, addCarrello;
     boolean iconaPlay = true;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,7 +34,7 @@ public class ProdottoTrovato extends Activity implements customToolBarInterface 
         customAdapter = new CustomAdapterProdottoTrovato(this,R.layout.list_element_prodotto_trovato, new ArrayList<String>());
         listViewProdotto.setAdapter(customAdapter);
         play = (ImageButton) findViewById(R.id.play);
-        home = (ImageButton) findViewById(R.id.home);
+
         addCarrello =(ImageButton) findViewById(R.id.carrello);
 
         sp = getSharedPreferences("Prodotti", Context.MODE_PRIVATE);
@@ -66,13 +66,6 @@ public class ProdottoTrovato extends Activity implements customToolBarInterface 
             }
         });
 
-        home.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent scansione = new Intent(getApplication(),MainActivity.class);
-                startActivity(scansione);
-            }
-        });
 
 
         addCarrello.setOnClickListener(new View.OnClickListener() {
