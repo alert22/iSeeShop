@@ -7,7 +7,10 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.media.AudioManager;
+import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -23,10 +26,14 @@ import java.util.ArrayList;
  */
 public class ProdottoTrovato extends Activity implements customToolBarInterface {
 
+    private static String TAG = "Prodotto Trovato";
+    private static String registname = "registrazione";
     ListView listViewProdotto;
     CustomAdapterProdottoTrovato customAdapter;
     CustomAdapterCarrello customAdapterCarrello;
     Prodotto prodotto;
+    private AudioManager am;
+    private MediaPlayer mp;
     SharedPreferences sp;
     int contatoreProdottiAggiunti =0;
     TextView nomeActivity;
@@ -41,12 +48,18 @@ public class ProdottoTrovato extends Activity implements customToolBarInterface 
 
         nomeActivity = (TextView)findViewById(R.id.nomeActivity);
         nomeActivity.setText("Dettaglio Prodotto");
+        play = (ImageButton) findViewById(R.id.play);
+
 
         Bitmap bm = BitmapFactory.decodeResource(getResources(),
                 R.drawable.ic_launcher);
         ActivityManager.TaskDescription taskDesc =
                 new ActivityManager.TaskDescription("iSeeShop", bm, getResources().getColor(R.color.coloreStatusBar));
         this.setTaskDescription(taskDesc);
+
+
+        am = (AudioManager) getSystemService(AUDIO_SERVICE);
+        mp = MediaPlayer.create(this, getResources().getIdentifier(registname, "raw", getPackageName()));
 
         //Set colore barra di stato
 
@@ -81,9 +94,19 @@ public class ProdottoTrovato extends Activity implements customToolBarInterface 
             public void onClick(View v) {
                 if(iconaPlay) {
                     play.setBackground(getDrawable(R.drawable.pausa));
+                    Log.d(TAG,"buttonPlay pressed");
+                    if (mp == null) {
+                        Toast.makeText(getApplicationContext(), "Nessun brano selezionato", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+                    mp.start();
                     iconaPlay=false;
                 }else{
                     play.setBackground(getDrawable(R.drawable.play));
+                    Log.d(TAG,"buttonPause pressed");
+                    if (mp != null) {
+                        mp.pause();
+                    }
                     iconaPlay=true;
                 }
             }
@@ -101,6 +124,7 @@ public class ProdottoTrovato extends Activity implements customToolBarInterface 
 
             }
         });
+
     }
 
 
