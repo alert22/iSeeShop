@@ -32,10 +32,12 @@ public class CustomAdapterCarrello extends ArrayAdapter<Prodotto> {
 
         TextView nomeTextView;
         TextView prezzoTextView;
+        TextView quantita;
 
-
+        quantita = (TextView) v.findViewById(R.id.pezzi);
         nomeTextView = (TextView) v.findViewById(R.id.nome);
         prezzoTextView = (TextView) v.findViewById(R.id.prezzo);
+        quantita.setText(sq.getQuantita()+"p. ");
         nomeTextView.setText(sq.getNome());
         prezzoTextView.setText(""+sq.getPrezzo());
 

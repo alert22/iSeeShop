@@ -9,13 +9,15 @@ public class Prodotto {
     private String produttore;
     private String scadenza;
     private String dataProduzione;
+    private int quantita;
 
-    public Prodotto(String nome, float prezzo, String produttore, String scadenza, String dataProduzione) {
+    public Prodotto(String nome, float prezzo, String produttore, String scadenza, String dataProduzione, int quantita) {
         this.nome = nome;
         this.prezzo = prezzo;
         this.produttore = produttore;
         this.scadenza = scadenza;
         this.dataProduzione = dataProduzione;
+        this.quantita=quantita;
     }
 
     public String getProduttore() {
@@ -56,5 +58,13 @@ public class Prodotto {
 
     public void setPrezzo(float prezzo) {
         this.prezzo = prezzo;
+    }
+
+    public int getQuantita() {
+        return quantita;
+    }
+
+    public void setQuantita(int quantita) {
+        this.quantita = quantita;
     }
 }

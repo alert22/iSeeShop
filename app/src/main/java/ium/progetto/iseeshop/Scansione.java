@@ -6,11 +6,9 @@ import android.app.ActivityManager;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.support.v4.app.FragmentActivity;
 import android.view.View;
 import android.view.Window;
@@ -50,8 +48,7 @@ public class Scansione extends FragmentActivity {
                         .setMessage(getString(R.string.textAlert)) //
                         .setPositiveButton(getString(R.string.showProduct), new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
-                                final SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-                                sp.edit().putBoolean("daCarrello", false).commit();
+
                                 Intent prodottoTrovato = new Intent(getApplication(),ProdottoTrovato.class);
                                 startActivity(prodottoTrovato);
                                 dialog.dismiss();

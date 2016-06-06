@@ -85,7 +85,7 @@ public class ProdottoDettagliatoTrovato extends FragmentActivity implements cust
 
 
         //Creazione Prodotto
-        prodotto = new Prodotto("Latte Parmalat", 1.00f, "Parmalat", "28/06/16", "28/05/2016");
+        prodotto = new Prodotto("Latte Parmalat", 1.00f, "Parmalat", "28/06/16", "28/05/2016", 1);
 
         //aggiungo al list view
         customAdapter.add(prodotto.getNome());

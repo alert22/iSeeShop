@@ -10,27 +10,31 @@ import android.graphics.BitmapFactory;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 
 /**
  * Created by Alina on 28/05/2016.
  */
-public class ProdottoTrovato extends FragmentActivity implements customToolBarInterface {
+public class ProdottoTrovato extends Activity implements customToolBarInterface {
 
     private static String TAG = "Prodotto Trovato";
     private static String registname = "registrazione";
+    public static final String FILE = "prodottiaAggiunti";
+
     ListView listViewProdotto;
     CustomAdapterProdottoTrovato customAdapter;
     CustomAdapterCarrello customAdapterCarrello;
@@ -40,20 +44,24 @@ public class ProdottoTrovato extends FragmentActivity implements customToolBarIn
     SharedPreferences sp;
     int contatoreProdottiAggiunti =0;
     TextView nomeActivity;
+    Button piu, meno;
+    EditText quantita;
+    int quant=0;
 
-    ImageButton play, frecciaSu, addCarrello;
+    ImageButton play, home, addCarrello;
     boolean iconaPlay = true;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.prodotto_trovato_layout);
 
-        frecciaSu = (ImageButton) findViewById(R.id.frecciasu);
 
         nomeActivity = (TextView)findViewById(R.id.nomeActivity);
         nomeActivity.setText("Dettaglio Prodotto");
         play = (ImageButton) findViewById(R.id.play);
-
+        piu = (Button)findViewById(R.id.piu);
+        meno = (Button) findViewById(R.id.meno);
+        quantita = (EditText) findViewById(R.id.quantita);
 
         Bitmap bm = BitmapFactory.decodeResource(getResources(),
                 R.drawable.ic_launcher);
@@ -86,13 +94,16 @@ public class ProdottoTrovato extends FragmentActivity implements customToolBarIn
 
 
         //Creazione Prodotto
-        prodotto = new Prodotto("Latte Parmalat", 1.00f, "Parmalat", "28/06/16", "28/05/2016");
+
+        prodotto = new Prodotto("Latte Parmalat", 1.00f, "Parmalat", "28/06/16", "28/05/2016", 1);
 
         //aggiungo al list view
         customAdapter.add(prodotto.getNome());
         customAdapter.add(""+prodotto.getPrezzo()+"€");
         customAdapter.add("Elemento 2/5");
         customAdapter.notifyDataSetChanged();
+
+        //riproduzione vocale play/pausa
         play.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -116,43 +127,77 @@ public class ProdottoTrovato extends FragmentActivity implements customToolBarIn
             }
         });
 
-        frecciaSu.setOnClickListener(new View.OnClickListener() {
+        //aggiunta al carrello
+        addCarrello.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent prodottoDettagliatoTrovato = new Intent(getApplication(),ProdottoDettagliatoTrovato.class);
-                startActivity(prodottoDettagliatoTrovato);
+
+                FileOutputStream fos = null;
+
+                Log.d("DEBUG", "Salvo sul file il prodotto");
+                try {
+                    fos = openFileOutput(FILE, Context.MODE_PRIVATE);
+                    //prendo la quantita inserita dall'utente e lo setto nel prodotto
+                    quant=Integer.parseInt(quantita.getText().toString());
+                    prodotto.setQuantita(quant);
+
+                    //salvo l'intero prodotto sul file per leggerlo nel carrello successivamente
+                        String str = prodotto.getNome()+"\n" +prodotto.getPrezzo()+"\n"+ prodotto.getProduttore()+"\n"+prodotto.getScadenza()+"\n"+prodotto.getDataProduzione()+"\n"+prodotto.getQuantita()+"\n";
+                        fos.write(str.getBytes());
+
+
+                    fos.close();
+
+                }
+                catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                }
+                catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+                Toast.makeText(getApplication(),"Il prodotto è stato aggiunto al carrello.", Toast.LENGTH_LONG).show();
+
+                finish();
+                Intent carrello= new Intent(getApplication(), Carrello.class);
+                startActivity(carrello);
+
+
             }
         });
 
-        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-        if(sp.getBoolean("daCarrello", false)) {
-            addCarrello.setBackground(getDrawable(R.drawable.cestino));
-
-        } else {
-            addCarrello.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    //utilizzo sharePreferences per aggiungere i prodotti al carrello
-                    contatoreProdottiAggiunti++;
-                    editor.putString(""+contatoreProdottiAggiunti, prodotto.getNome());
-                    editor.putFloat(prodotto.getNome(), prodotto.getPrezzo());
-                    editor.apply();
-                    Toast.makeText(getApplication(),"Il prodotto è stato aggiunto al carrello.", Toast.LENGTH_LONG).show();
-
-                }
-            });
-        }
+        piu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                quant=Integer.parseInt(quantita.getText().toString());
+                quant = quant+1;
+                quantita.setText(""+quant);
             }
+        });
+        meno.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                quant=Integer.parseInt(quantita.getText().toString());
+                quant = quant-1;
+                if(quant<1){
+                    quantita.setText("1");
+                }else {
+                    quantita.setText("" + quant);
+                }
+            }
+        });
+
+    }
+
 
     @Override
     public void goHome(View v) {
-        this.finish();
+            this.finish();
     }
 
     @Override
     public void showPopup(View v) {
         CustomToolBar.show(this, v);
     }
-
 
 }
