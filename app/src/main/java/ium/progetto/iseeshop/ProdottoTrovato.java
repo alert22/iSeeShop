@@ -21,6 +21,9 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 
 /**
@@ -30,6 +33,8 @@ public class ProdottoTrovato extends Activity implements customToolBarInterface 
 
     private static String TAG = "Prodotto Trovato";
     private static String registname = "registrazione";
+    public static final String FILE = "prodottiaAggiunti";
+
     ListView listViewProdotto;
     CustomAdapterProdottoTrovato customAdapter;
     CustomAdapterCarrello customAdapterCarrello;
@@ -41,7 +46,7 @@ public class ProdottoTrovato extends Activity implements customToolBarInterface 
     TextView nomeActivity;
     Button piu, meno;
     EditText quantita;
-    int quant;
+    int quant=0;
 
     ImageButton play, home, addCarrello;
     boolean iconaPlay = true;
@@ -126,12 +131,37 @@ public class ProdottoTrovato extends Activity implements customToolBarInterface 
         addCarrello.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //utilizzo sharePreferences per aggiungere i prodotti al carrello
-                contatoreProdottiAggiunti++;
-                editor.putString(""+contatoreProdottiAggiunti, prodotto.getNome());
-                editor.putFloat(prodotto.getNome(), prodotto.getPrezzo());
-                editor.apply();
+
+                FileOutputStream fos = null;
+
+                Log.d("DEBUG", "Salvo sul file il prodotto");
+                try {
+                    fos = openFileOutput(FILE, Context.MODE_PRIVATE);
+                    //prendo la quantita inserita dall'utente e lo setto nel prodotto
+                    quant=Integer.parseInt(quantita.getText().toString());
+                    prodotto.setQuantita(quant);
+
+                    //salvo l'intero prodotto sul file per leggerlo nel carrello successivamente
+                        String str = prodotto.getNome()+"\n" +prodotto.getPrezzo()+"\n"+ prodotto.getProduttore()+"\n"+prodotto.getScadenza()+"\n"+prodotto.getDataProduzione()+"\n"+prodotto.getQuantita()+"\n";
+                        fos.write(str.getBytes());
+
+
+                    fos.close();
+
+                }
+                catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                }
+                catch (IOException e) {
+                    e.printStackTrace();
+                }
+
                 Toast.makeText(getApplication(),"Il prodotto è stato aggiunto al carrello.", Toast.LENGTH_LONG).show();
+
+                finish();
+                Intent carrello= new Intent(getApplication(), Carrello.class);
+                startActivity(carrello);
+
 
             }
         });
@@ -149,8 +179,8 @@ public class ProdottoTrovato extends Activity implements customToolBarInterface 
             public void onClick(View v) {
                 quant=Integer.parseInt(quantita.getText().toString());
                 quant = quant-1;
-                if(quant<0){
-                    quantita.setText("0");
+                if(quant<1){
+                    quantita.setText("1");
                 }else {
                     quantita.setText("" + quant);
                 }
