@@ -13,9 +13,8 @@
     <ImageView
         android:layout_marginTop="10dp"
         android:id="@+id/imgProdotto"
-        android:layout_width="170dp"
-        android:layout_height="170dp"
-        android:layout_gravity="center"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
         android:background="@drawable/lattenoback"/>
     <ListView
         android:id="@+id/listview"
@@ -37,20 +36,17 @@
         android:layout_gravity="center_horizontal|center_vertical"
         android:layout_margin="5dp">
         <Button
-            android:id="@+id/meno"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="-"
             android:layout_marginRight="10dp"/>
         <EditText
-            android:id="@+id/quantita"
             android:layout_width="60dp"
             android:layout_height="wrap_content"
             android:text="1"
             android:gravity="center_horizontal"
             android:inputType="numberDecimal"/>
         <Button
-            android:id="@+id/piu"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="+"
@@ -75,11 +71,12 @@
             android:background="@drawable/play"
             android:layout_gravity="left"/>
         <ImageButton
-            android:id="@+id/frecciasu"
+            android:id="@+id/frecciagiu"
             android:layout_width="80dp"
             android:layout_height="80dp"
             android:background="@drawable/frecciasu"
             android:layout_gravity="center"
+            android:scaleY="-1"
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true" />
         <ImageButton

@@ -13,6 +13,8 @@ import android.view.WindowManager;
  */
 public class Splash extends Activity {
 
+    //la scheramata di caricamento
+
     /** Duration of wait **/
     private final int SPLASH_DISPLAY_LENGTH = 1000;
 
@@ -33,6 +35,6 @@ public class Splash extends Activity {
                 startActivity(new Intent(Splash.this, MainActivity.class));
                 finish();
             }
-        }, secondsDelayed * 1000);
+        }, secondsDelayed * SPLASH_DISPLAY_LENGTH);
     }
 }
