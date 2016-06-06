@@ -14,6 +14,8 @@ import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -37,6 +39,9 @@ public class ProdottoTrovato extends Activity implements customToolBarInterface 
     SharedPreferences sp;
     int contatoreProdottiAggiunti =0;
     TextView nomeActivity;
+    Button piu, meno;
+    EditText quantita;
+    int quant;
 
     ImageButton play, home, addCarrello;
     boolean iconaPlay = true;
@@ -49,7 +54,9 @@ public class ProdottoTrovato extends Activity implements customToolBarInterface 
         nomeActivity = (TextView)findViewById(R.id.nomeActivity);
         nomeActivity.setText("Dettaglio Prodotto");
         play = (ImageButton) findViewById(R.id.play);
-
+        piu = (Button)findViewById(R.id.piu);
+        meno = (Button) findViewById(R.id.meno);
+        quantita = (EditText) findViewById(R.id.quantita);
 
         Bitmap bm = BitmapFactory.decodeResource(getResources(),
                 R.drawable.ic_launcher);
@@ -82,13 +89,16 @@ public class ProdottoTrovato extends Activity implements customToolBarInterface 
 
 
         //Creazione Prodotto
-        prodotto = new Prodotto("Latte Parmalat", 1.00f, "Parmalat", "28/06/16", "28/05/2016");
+
+        prodotto = new Prodotto("Latte Parmalat", 1.00f, "Parmalat", "28/06/16", "28/05/2016", 1);
 
         //aggiungo al list view
         customAdapter.add(prodotto.getNome());
         customAdapter.add(""+prodotto.getPrezzo()+"€");
         customAdapter.add("Elemento 2/5");
         customAdapter.notifyDataSetChanged();
+
+        //riproduzione vocale play/pausa
         play.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -112,6 +122,7 @@ public class ProdottoTrovato extends Activity implements customToolBarInterface 
             }
         });
 
+        //aggiunta al carrello
         addCarrello.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -122,6 +133,27 @@ public class ProdottoTrovato extends Activity implements customToolBarInterface 
                 editor.apply();
                 Toast.makeText(getApplication(),"Il prodotto è stato aggiunto al carrello.", Toast.LENGTH_LONG).show();
 
+            }
+        });
+
+        piu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                quant=Integer.parseInt(quantita.getText().toString());
+                quant = quant+1;
+                quantita.setText(""+quant);
+            }
+        });
+        meno.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                quant=Integer.parseInt(quantita.getText().toString());
+                quant = quant-1;
+                if(quant<0){
+                    quantita.setText("0");
+                }else {
+                    quantita.setText("" + quant);
+                }
             }
         });
 

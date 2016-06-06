@@ -48,9 +48,9 @@ public class Carrello extends FragmentActivity {
         final SharedPreferences.Editor editor = sp.edit();
 
         //Creazione Prodotti
-        prodotto = new Prodotto("Pasta Barilla", 1.20f, "Barilla", "29/06/16", "28/05/2018");
-        prodotto1 = new Prodotto("Fagioli Mersì", 2.00f, "Azienda Martea", "29/06/17", "28/05/2016");
-        prodotto2 = new Prodotto("Acqua Naturale Ginevra", 0.90f, "Ginevra", "28/06/16", "28/05/2019");
+        prodotto = new Prodotto("Pasta Barilla", 1.20f, "Barilla", "29/06/16", "28/05/2018", 1);
+        prodotto1 = new Prodotto("Fagioli Mersì", 2.00f, "Azienda Martea", "29/06/17", "28/05/2016", 2);
+        prodotto2 = new Prodotto("Acqua Naturale Ginevra", 0.90f, "Ginevra", "28/06/16", "28/05/2019", 1);
 
 
 
@@ -68,7 +68,7 @@ public class Carrello extends FragmentActivity {
             float nuovoPrezzo = sp.getFloat(nuovoNome, 0);
             i++;
             if (nuovoNome != null) {
-                arrayProdotti.add(new Prodotto(nuovoNome, nuovoPrezzo, null, null, null));
+                arrayProdotti.add(new Prodotto(nuovoNome, nuovoPrezzo, null, null, null, 1));
             }
         }
         aggiungiProdotti();
@@ -155,7 +155,7 @@ public class Carrello extends FragmentActivity {
         somma=0;
         customAdapterCarrello.clear();
         for(int i=0; i<arrayProdotti.size(); i++){
-            somma = somma+arrayProdotti.get(i).getPrezzo();
+            somma = somma+arrayProdotti.get(i).getPrezzo()*arrayProdotti.get(i).getQuantita();
             customAdapterCarrello.add(arrayProdotti.get(i));
         }
         customAdapterCarrello.notifyDataSetChanged();
