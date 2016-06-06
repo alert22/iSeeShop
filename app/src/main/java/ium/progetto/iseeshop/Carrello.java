@@ -3,8 +3,10 @@ package ium.progetto.iseeshop;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v4.app.FragmentActivity;
 import android.text.Html;
 import android.view.Menu;
@@ -33,7 +35,7 @@ public class Carrello extends FragmentActivity {
     private float somma;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.carrello_layout);
 
@@ -74,6 +76,15 @@ public class Carrello extends FragmentActivity {
         aggiungiProdotti();
 
         //OnClick listener per eliminazione item
+        final SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        listViewCarrello.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                sp.edit().putBoolean("daCarrello", true).commit();
+                Intent prodottoTrovato = new Intent(getApplication(),ProdottoTrovato.class);
+                startActivity(prodottoTrovato);
+            }
+        });
 
         listViewCarrello.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override

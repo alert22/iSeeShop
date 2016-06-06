@@ -8,6 +8,7 @@ import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -89,18 +90,26 @@ public class ProdottoTrovato extends Activity implements customToolBarInterface 
             }
         });
 
-        addCarrello.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //utilizzo sharePreferences per aggiungere i prodotti al carrello
-                contatoreProdottiAggiunti++;
-                editor.putString(""+contatoreProdottiAggiunti, prodotto.getNome());
-                editor.putFloat(prodotto.getNome(), prodotto.getPrezzo());
-                editor.apply();
-                Toast.makeText(getApplication(),"Il prodotto è stato aggiunto al carrello.", Toast.LENGTH_LONG).show();
+        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        if(sp.getBoolean("daCarrello", false)) {
+            addCarrello.setBackground(getDrawable(R.drawable.cestino));
 
-            }
-        });
+        } else {
+            addCarrello.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    //utilizzo sharePreferences per aggiungere i prodotti al carrello
+                    contatoreProdottiAggiunti++;
+                    editor.putString(""+contatoreProdottiAggiunti, prodotto.getNome());
+                    editor.putFloat(prodotto.getNome(), prodotto.getPrezzo());
+                    editor.apply();
+                    Toast.makeText(getApplication(),"Il prodotto è stato aggiunto al carrello.", Toast.LENGTH_LONG).show();
+
+                }
+            });
+        }
+
+
     }
 
 
