@@ -3,7 +3,6 @@ package ium.progetto.iseeshop;
 import android.app.Activity;
 import android.app.ActivityManager;
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -11,7 +10,6 @@ import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.view.View;
@@ -27,7 +25,7 @@ import java.util.ArrayList;
 /**
  * Created by Alina on 28/05/2016.
  */
-public class ProdottoTrovato extends FragmentActivity implements customToolBarInterface {
+public class ProdottoDettagliatoTrovato extends FragmentActivity implements customToolBarInterface {
 
     private static String TAG = "Prodotto Trovato";
     private static String registname = "registrazione";
@@ -40,15 +38,16 @@ public class ProdottoTrovato extends FragmentActivity implements customToolBarIn
     SharedPreferences sp;
     int contatoreProdottiAggiunti =0;
     TextView nomeActivity;
+    ImageButton frecciaGiu;
 
-    ImageButton play, frecciaSu, addCarrello;
+    ImageButton play, home, addCarrello;
     boolean iconaPlay = true;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.prodotto_trovato_layout);
+        setContentView(R.layout.prodotto_trovato_dettagliato_layout);
 
-        frecciaSu = (ImageButton) findViewById(R.id.frecciasu);
+        frecciaGiu = (ImageButton) findViewById(R.id.frecciagiu);
 
         nomeActivity = (TextView)findViewById(R.id.nomeActivity);
         nomeActivity.setText("Dettaglio Prodotto");
@@ -116,11 +115,10 @@ public class ProdottoTrovato extends FragmentActivity implements customToolBarIn
             }
         });
 
-        frecciaSu.setOnClickListener(new View.OnClickListener() {
+        frecciaGiu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent prodottoDettagliatoTrovato = new Intent(getApplication(),ProdottoDettagliatoTrovato.class);
-                startActivity(prodottoDettagliatoTrovato);
+                goHome(v);
             }
         });
 

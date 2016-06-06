@@ -34,10 +34,14 @@ public class Carrello extends FragmentActivity {
     private Prodotto prodotto2;
     private float somma;
 
+    public static Carrello _carrello;
+
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.carrello_layout);
+
+        _carrello = this;
 
         arrayProdotti = new ArrayList<>();
         cestino = (ImageButton) findViewById(R.id.cestino);
@@ -80,7 +84,15 @@ public class Carrello extends FragmentActivity {
         listViewCarrello.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                sp.edit().putBoolean("daCarrello", true).commit();
+                sp.edit().putBoolean("daCarrello", true);
+                sp.edit().putInt("posizione", listViewCarrello.getSelectedItemPosition());
+                Prodotto p = (Prodotto) listViewCarrello.getSelectedItem();
+                sp.edit().putString("nome",p.getNome());
+                sp.edit().putFloat("prezzo",p.getPrezzo());
+                sp.edit().putString("produttore",p.getProduttore());
+                sp.edit().putString("scadenza",p.getScadenza());
+                sp.edit().putString("dataProduzione",p.getDataProduzione());
+                sp.edit().commit();
                 Intent prodottoTrovato = new Intent(getApplication(),ProdottoTrovato.class);
                 startActivity(prodottoTrovato);
             }
@@ -172,5 +184,26 @@ public class Carrello extends FragmentActivity {
         customAdapterCarrello.notifyDataSetChanged();
         float f = (float) (Math.round( somma * Math.pow( 10, 2 ) )/Math.pow( 10, 2 ));
         textSomma.setText(""+f);
+    }
+
+    public void removeProdotto(Prodotto p, final int position) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(getApplicationContext());
+        builder.setTitle(getString(R.string.titleAlertDelete)) //
+                .setMessage(getString(R.string.textAlertDelete)) //
+                .setPositiveButton(getString(R.string.deleteProduct), new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        arrayProdotti.remove(position);
+                        aggiungiProdotti();
+                        dialog.dismiss();
+
+                    }
+                }) //
+                .setNegativeButton(getString(R.string.ignoreDeleteProduct), new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.dismiss();
+
+                    }
+                });
+        builder.show();
     }
 }
