@@ -159,27 +159,7 @@ public class Carrello extends FragmentActivity {
         cestino.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
-                builder.setTitle(getString(R.string.titleAlertSvuota)) //
-                        .setMessage(getString(R.string.deleteCarrello)) //
-                        .setPositiveButton(getString(R.string.si), new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int id) {
-                                arrayProdotti.clear();
-                                customAdapterCarrello.clear();
-                                textSomma.setText("0");
-                                editor.clear();
-                                editor.commit();
-                                dialog.dismiss();
 
-                            }
-                        }) //
-                        .setNegativeButton(getString(R.string.ignoreDeleteProduct), new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int id) {
-                                dialog.dismiss();
-
-                            }
-                        });
-                builder.show();
             }
         });
     }

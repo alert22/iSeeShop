@@ -10,6 +10,7 @@ import android.graphics.BitmapFactory;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
@@ -159,7 +160,10 @@ public class ProdottoTrovato extends Activity implements customToolBarInterface 
                 Toast.makeText(getApplication(),"Il prodotto è stato aggiunto al carrello.", Toast.LENGTH_LONG).show();
 
                 finish();
-                Intent carrello= new Intent(getApplication(), Carrello.class);
+                Intent carrello= new Intent(getApplication(), MainActivity.class);
+                SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+                sp.edit().putBoolean("scansione",false).commit();
+                sp.edit().apply();
                 startActivity(carrello);
 
 
