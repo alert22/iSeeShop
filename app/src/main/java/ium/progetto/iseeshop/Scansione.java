@@ -18,7 +18,6 @@ import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
-
 public class Scansione extends FragmentActivity {
 
     //crezione barra custom per il task manager
