@@ -7,7 +7,11 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.media.AudioManager;
+import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -128,22 +132,16 @@ public class ProdottoTrovato extends Activity implements customToolBarInterface 
             });
         }
             }
-        });
-
-    }
-
-
-    }
-
 
     @Override
     public void goHome(View v) {
-            this.finish();
+        this.finish();
     }
 
     @Override
     public void showPopup(View v) {
         CustomToolBar.show(this, v);
     }
+
 
 }
