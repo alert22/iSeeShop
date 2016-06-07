@@ -100,7 +100,8 @@ public class ProdottoDettagliatoTrovato extends Activity implements customToolBa
                 sp.getString("marca", "Parmalat"),
                 sp.getString("scadenza", "28/06/16"),
                 sp.getString("produzione", "28/05/2016"),
-                sp.getInt("quantita", 1));
+                sp.getInt("quantita", 1),
+                sp.getInt("idImmagine", R.drawable.lattenoback));
         Log.d("prova shared ", sp.getString("funziono", "non va :("));
 
         //aggiungo al list view
@@ -164,6 +165,7 @@ public class ProdottoDettagliatoTrovato extends Activity implements customToolBa
                     editor.putString("scadenza", prodotto.getScadenza());
                     editor.putString("produzione", prodotto.getDataProduzione());
                     editor.putInt("quantita", Integer.parseInt(quantita.getText().toString()));
+                    editor.putInt("idImmagine", prodotto.getIdImmagine());
                     editor.putBoolean("prodottoDaCarrello", true);
                     editor.putString("funziono", "funziono");
                     editor.putBoolean("scansione", false).commit();

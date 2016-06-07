@@ -2,7 +2,9 @@ package ium.progetto.iseeshop;
 
 import android.app.Activity;
 import android.app.ActivityManager;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
@@ -44,6 +46,7 @@ public class ProdottoTrovato extends Activity implements customToolBarInterface 
     private AudioManager am;
     private MediaPlayer mp;
     SharedPreferences sp;
+    ImageView imgProdotto;
     int contatoreProdottiAggiunti =0;
     TextView nomeActivity;
     Button piu, meno;
@@ -57,7 +60,7 @@ public class ProdottoTrovato extends Activity implements customToolBarInterface 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.prodotto_trovato_layout);
 
-
+        imgProdotto = (ImageView) findViewById(R.id.imgProdotto);
         nomeActivity = (TextView)findViewById(R.id.nomeActivity);
         nomeActivity.setText("Dettaglio Prodotto");
         play = (ImageButton) findViewById(R.id.play);
@@ -101,9 +104,12 @@ public class ProdottoTrovato extends Activity implements customToolBarInterface 
                 sp.getString("marca","Parmalat"),
                 sp.getString("scadenza","28/06/16"),
                 sp.getString("produzione","28/05/2016"),
-                sp.getInt("quantita",1));
+                sp.getInt("quantita",1),
+                sp.getInt("idImmagine",R.drawable.lattenoback));
                 Log.d("prova shared ", sp.getString("funziono","non va :("));
 
+
+        imgProdotto.setImageDrawable(getDrawable(prodotto.getIdImmagine()));
         //aggiungo al list view
         customAdapter.add(prodotto.getNome());
         customAdapter.add(""+prodotto.getPrezzo()+"€");
@@ -148,6 +154,29 @@ public class ProdottoTrovato extends Activity implements customToolBarInterface 
 
         if (sp.getBoolean("prodottoDaCarrello", true)) {
             addCarrello.setBackground(getDrawable(R.drawable.cestino));
+            addCarrello.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
+                    builder.setTitle(getString(R.string.textAlertDelete)) //
+                            .setMessage(getString(R.string.deleteCarrello)) //
+                            .setPositiveButton(getString(R.string.si), new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+                                    Carrello.carrello.rimuoviProdotto(sp.getInt("posizione",0));
+                                    goBack();
+                                    dialog.dismiss();
+
+                                }
+                            }) //
+                            .setNegativeButton(getString(R.string.ignoreDeleteProduct), new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+                                    dialog.dismiss();
+
+                                }
+                            });
+                    builder.show();
+                }
+            });
         } else {
             addCarrello.setBackground(getDrawable(R.drawable.carrello));
             addCarrello.setOnClickListener(new View.OnClickListener() {
@@ -167,11 +196,16 @@ public class ProdottoTrovato extends Activity implements customToolBarInterface 
                     editor.putString("scadenza",prodotto.getScadenza());
                     editor.putString("produzione",prodotto.getDataProduzione());
                     editor.putInt("quantita",Integer.parseInt(quantita.getText().toString()));
-                    editor.putBoolean("prodottoDaCarrello", true);
+                    editor.putInt("idImmagine", prodotto.getIdImmagine());
+                    editor.putBoolean("prodottoDaCarrello", false);
                     editor.putString("funziono","funziono");
                     editor.putBoolean("scansione", false).commit();
                     editor.commit();
-                    startActivity(carrello);
+                    MainActivity.mainActivity.selezioneTab(1);
+                    Carrello.carrello.aggiungiProdotto();
+                    goHome(v);
+                    //startActivity(carrello);
+
 
 
                 }
@@ -201,7 +235,9 @@ public class ProdottoTrovato extends Activity implements customToolBarInterface 
 
     }
 
-
+    public void goBack() {
+        this.finish();
+    }
     @Override
     public void goHome(View v) {
             this.finish();
