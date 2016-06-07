@@ -21,6 +21,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -55,11 +56,15 @@ public class ProdottoTrovato extends Activity implements customToolBarInterface 
     ImageButton frecciaSu;
     ImageButton play, home, addCarrello;
     boolean iconaPlay = true;
+    LinearLayout quantitaLayout;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.prodotto_trovato_layout);
 
+
+        quantitaLayout = (LinearLayout) findViewById(R.id.quantitaCorto);
         imgProdotto = (ImageView) findViewById(R.id.imgProdotto);
         nomeActivity = (TextView)findViewById(R.id.nomeActivity);
         nomeActivity.setText("Dettaglio Prodotto");
@@ -78,7 +83,7 @@ public class ProdottoTrovato extends Activity implements customToolBarInterface 
 
 
         am = (AudioManager) getSystemService(AUDIO_SERVICE);
-        mp = MediaPlayer.create(this, getResources().getIdentifier(registname, "raw", getPackageName()));
+
 
         //Set colore barra di stato
 
@@ -105,18 +110,20 @@ public class ProdottoTrovato extends Activity implements customToolBarInterface 
                 sp.getString("scadenza","28/06/16"),
                 sp.getString("produzione","28/05/2016"),
                 sp.getInt("quantita",1),
-                sp.getInt("idImmagine",R.drawable.lattenoback));
+                sp.getInt("idImmagine",R.drawable.lattenoback),
+                sp.getInt("idAudio", R.raw.registrazione));
                 Log.d("prova shared ", sp.getString("funziono","non va :("));
 
-        quantita.setText("" + prodotto.getQuantita());
+        quantita.setText("" + prodotto.getQuantita()); 
         imgProdotto.setImageDrawable(getDrawable(prodotto.getIdImmagine()));
         //aggiungo al list view
         customAdapter.add(prodotto.getNome());
         customAdapter.add(""+prodotto.getPrezzo()+"€");
-        customAdapter.add("Elemento 2/5");
+        customAdapter.add("D.Scadenza: "+prodotto.getScadenza());
         customAdapter.notifyDataSetChanged();
 
         //riproduzione vocale play/pausa
+        mp = MediaPlayer.create(this, prodotto.getIdAudio());
         play.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -156,6 +163,7 @@ public class ProdottoTrovato extends Activity implements customToolBarInterface 
 
         if (sp.getBoolean("prodottoDaCarrello", true)) {
             addCarrello.setBackground(getDrawable(R.drawable.cestino));
+            quantitaLayout.setVisibility(View.INVISIBLE);
             addCarrello.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -201,6 +209,7 @@ public class ProdottoTrovato extends Activity implements customToolBarInterface 
                     editor.putInt("idImmagine", prodotto.getIdImmagine());
                     editor.putBoolean("prodottoDaCarrello", false);
                     editor.putString("funziono","funziono");
+                    editor.putInt("idAudio",prodotto.getIdAudio());
                     editor.putBoolean("scansione", false).commit();
                     editor.commit();
                     MainActivity.mainActivity.selezioneTab(1);

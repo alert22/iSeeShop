@@ -11,8 +11,9 @@ public class Prodotto {
     private String dataProduzione;
     private int quantita;
     private int idImmagine;
+    private int idAudio;
 
-    public Prodotto(String nome, float prezzo, String produttore, String scadenza, String dataProduzione, int quantita, int idImmagine) {
+    public Prodotto(String nome, float prezzo, String produttore, String scadenza, String dataProduzione, int quantita, int idImmagine, int idAudio) {
         this.nome = nome;
         this.prezzo = prezzo;
         this.produttore = produttore;
@@ -20,7 +21,17 @@ public class Prodotto {
         this.dataProduzione = dataProduzione;
         this.quantita=quantita;
         this.idImmagine=idImmagine;
+        this.idAudio = idAudio;
     }
+
+    public int getIdAudio() {
+        return idAudio;
+    }
+
+    public void setIdAudio(int idAudio) {
+        this.idAudio = idAudio;
+    }
+
 
     public int getIdImmagine() {
         return idImmagine;

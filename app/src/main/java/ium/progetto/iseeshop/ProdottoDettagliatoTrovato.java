@@ -107,7 +107,8 @@ public class ProdottoDettagliatoTrovato extends Activity implements customToolBa
                 sp.getString("scadenza", "28/06/16"),
                 sp.getString("produzione", "28/05/2016"),
                 sp.getInt("quantita", 1),
-                sp.getInt("idImmagine", R.drawable.lattenoback));
+                sp.getInt("idImmagine", R.drawable.lattenoback),
+                sp.getInt("idAudio",R.raw.registrazione));
         Log.d("prova shared ", sp.getString("funziono", "non va :("));
 
         quantita.setText("" + prodotto.getQuantita());
@@ -115,8 +116,11 @@ public class ProdottoDettagliatoTrovato extends Activity implements customToolBa
 
         //aggiungo al list view
         customAdapter.add(prodotto.getNome());
+        customAdapter.add(prodotto.getProduttore());
         customAdapter.add("" + prodotto.getPrezzo() + "€");
-        customAdapter.add("Elemento 2/5");
+        customAdapter.add("D.Produzione: "+prodotto.getDataProduzione());
+        customAdapter.add("D.Scadenza: "+prodotto.getScadenza());
+        customAdapter.add(prodotto.getQuantita() + "pz");
         customAdapter.notifyDataSetChanged();
 
         //riproduzione vocale play/pausa
@@ -205,6 +209,7 @@ public class ProdottoDettagliatoTrovato extends Activity implements customToolBa
                     editor.putBoolean("prodottoDaCarrello", true);
                     editor.putString("funziono", "funziono");
                     editor.putBoolean("scansione", false).commit();
+                    editor.putInt("idAudio",prodotto.getIdAudio());
                     editor.commit();
                     goHome(v);
                     //startActivity(carrello);

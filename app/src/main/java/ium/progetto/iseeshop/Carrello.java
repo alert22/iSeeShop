@@ -64,9 +64,9 @@ public class Carrello extends FragmentActivity {
         final SharedPreferences.Editor editor = sp.edit();
 
         //Creazione Prodotti
-        prodotto = new Prodotto("Pasta Barilla", 1.20f, "Barilla",  "28/05/2018","29/06/16", 1, R.drawable.pipe_rigate);
-        prodotto1 = new Prodotto("Fagioli Mersì", 2.00f, "Azienda Martea", "29/06/17", "28/05/2016", 2, R.drawable.fagioli);
-        prodotto2 = new Prodotto("Acqua Vita Snella", 0.90f, "Vita Snella",  "28/05/2019","28/06/16", 4, R.drawable.acqua_vitasnella);
+        prodotto = new Prodotto("Pasta Barilla", 1.20f, "Barilla",  "28/05/2018","29/06/16", 1, R.drawable.pipe_rigate, R.raw.pasta_barilla);
+        prodotto1 = new Prodotto("Fagioli Mersì", 2.00f, "Azienda Martea", "29/06/17", "28/05/2016", 2, R.drawable.fagioli, R.raw.fagioli);
+        prodotto2 = new Prodotto("Acqua Vita Snella", 0.90f, "Vita Snella",  "28/05/2019","28/06/16", 4, R.drawable.acqua_vitasnella, R.raw.vita_snella);
 
 
 
@@ -99,6 +99,7 @@ public class Carrello extends FragmentActivity {
                         editor.putString("funziono","funziono");
                         editor.putInt("posizione", position);
                         editor.putInt("idImmagine", p.getIdImmagine());
+                        editor.putInt("idAudio",p.getIdAudio());
                         editor.commit();
                         Intent prodottoTrovato = new Intent(getApplication(), ProdottoTrovato.class);
                         startActivity(prodottoTrovato);
@@ -208,7 +209,8 @@ public class Carrello extends FragmentActivity {
                 sp.getString("scadenza","28/06/16"),
                 sp.getString("produzione","28/05/2016"),
                 sp.getInt("quantita",1),
-                sp.getInt("idImmagine", R.drawable.lattenoback));
+                sp.getInt("idImmagine", R.drawable.lattenoback),
+                sp.getInt("idAudio",R.raw.registrazione));
         Log.d("prova shared ", sp.getString("funziono","non va :("));
         arrayProdotti.add(prodotto);
         aggiungiProdotti();

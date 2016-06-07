@@ -20,14 +20,13 @@ public class InfoActivity extends Activity implements customToolBarInterface{
     TextView testoInfo;
     TextView nomeActivity;
 
-    String testoInfoStr = "Lorem ipsum dolor sit amet, consectetur adipisci elit," +
-            " sed eiusmod tempor incidunt ut labore et dolore magna aliqua. Ut" +
-            " enim ad minim veniam, quis nostrum exercitationem ullam corporis" +
-            " suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur. " +
-            "Quis aute iure reprehenderit in voluptate velit esse cillum dolore" +
-            " eu fugiat nulla pariatur. Excepteur sint obcaecat cupiditat non" +
-            " proident, sunt in culpa qui officia deserunt mollit anim id est" +
-            " laborum.";
+    String testoInfoStr = "L’app iSeeShop è stata realizzata presso l’Università degli Studi di Salerno," +
+            " dal team composto dagli studenti:\n\nAlina Korniychuk,\nPietro Russo,\nRoberto Tortora, \nRaffaele" +
+            " Sibilia.\n\nNell’ambito di un progetto universitario del corso di “Interazione Uomo-Macchina”.\n" +
+            "\n" +
+            "Versione 1.0\n" +
+            "\n" +
+            "© 2015-2016";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,7 +50,6 @@ public class InfoActivity extends Activity implements customToolBarInterface{
         window.setStatusBarColor(getResources().getColor(R.color.coloreStatusBar));
 
         testoInfo = (TextView) findViewById(R.id.textInfo);
-        testoInfoStr += testoInfoStr;
         testoInfo.setText(testoInfoStr);
     }
 

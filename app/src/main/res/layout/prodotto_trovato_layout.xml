@@ -35,7 +35,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal|center_vertical"
-        android:layout_margin="5dp">
+        android:layout_margin="5dp"
+        android:id="@+id/quantitaCorto">
         <Button
             android:id="@+id/meno"
             android:layout_width="wrap_content"
