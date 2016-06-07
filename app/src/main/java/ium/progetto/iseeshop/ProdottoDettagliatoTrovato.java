@@ -168,8 +168,8 @@ public class ProdottoDettagliatoTrovato extends Activity implements customToolBa
                 @Override
                 public void onClick(View v) {
                     AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
-                    builder.setTitle(getString(R.string.textAlertDelete)) //
-                            .setMessage(getString(R.string.deleteCarrello)) //
+                    builder.setTitle(getString(R.string.titleAlertDelete)) //
+                            .setMessage(getString(R.string.textAlert)) //
                             .setPositiveButton(getString(R.string.si), new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int id) {
                                     Carrello.carrello.rimuoviProdotto(sp.getInt("posizione",0));
