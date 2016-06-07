@@ -45,12 +45,14 @@ public class Carrello extends FragmentActivity {
     private Prodotto prodotto1;
     private Prodotto prodotto2;
     private float somma;
+    public static Carrello carrello;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.carrello_layout);
 
+        carrello = this;
         arrayProdotti = new ArrayList<Prodotto>();
         cestino = (ImageButton) findViewById(R.id.cestino);
         listViewCarrello = (ListView) findViewById(R.id.listaProdotti);
@@ -62,9 +64,9 @@ public class Carrello extends FragmentActivity {
         final SharedPreferences.Editor editor = sp.edit();
 
         //Creazione Prodotti
-        prodotto = new Prodotto("Pasta Barilla", 1.20f, "Barilla", "29/06/16", "28/05/2018", 1);
-        prodotto1 = new Prodotto("Fagioli Mersì", 2.00f, "Azienda Martea", "29/06/17", "28/05/2016", 2);
-        prodotto2 = new Prodotto("Acqua Naturale Ginevra", 0.90f, "Ginevra", "28/06/16", "28/05/2019", 4);
+        prodotto = new Prodotto("Pasta Barilla", 1.20f, "Barilla",  "28/05/2018","29/06/16", 1, R.drawable.pipe_rigate);
+        prodotto1 = new Prodotto("Fagioli Mersì", 2.00f, "Azienda Martea", "29/06/17", "28/05/2016", 2, R.drawable.fagioli);
+        prodotto2 = new Prodotto("Acqua Vita Snella", 0.90f, "Vita Snella",  "28/05/2019","28/06/16", 4, R.drawable.acqua_vitasnella);
 
 
 
@@ -77,16 +79,6 @@ public class Carrello extends FragmentActivity {
         arrayProdotti.add(prodotto2);
 
         //Creazione Prodotto
-
-        prodotto = new Prodotto(
-                sp.getString("nome","Latte Parmalat"),
-                sp.getFloat("prezzo", 1.00f),
-                sp.getString("marca","Parmalat"),
-                sp.getString("scadenza","28/06/16"),
-                sp.getString("produzione","28/05/2016"),
-                sp.getInt("quantita",1));
-        Log.d("prova shared ", sp.getString("funziono","non va :("));
-        arrayProdotti.add(prodotto);
         aggiungiProdotti();
 
 
@@ -105,6 +97,8 @@ public class Carrello extends FragmentActivity {
                         editor.putInt("quantita",p.getQuantita());
                         editor.putBoolean("prodottoDaCarrello", true);
                         editor.putString("funziono","funziono");
+                        editor.putInt("posizione", position);
+                        editor.putInt("idImmagine", p.getIdImmagine());
                         editor.commit();
                         Intent prodottoTrovato = new Intent(getApplication(), ProdottoTrovato.class);
                         startActivity(prodottoTrovato);
@@ -199,5 +193,24 @@ public class Carrello extends FragmentActivity {
         customAdapterCarrello.notifyDataSetChanged();
         float f = (float) (Math.round( somma * Math.pow( 10, 2 ) )/Math.pow( 10, 2 ));
         textSomma.setText(""+f);
+    }
+
+    public void rimuoviProdotto(int position) {
+        arrayProdotti.remove(position);
+        aggiungiProdotti();
+    }
+
+    public void aggiungiProdotto() {
+        prodotto = new Prodotto(
+                sp.getString("nome","Latte Parmalat"),
+                sp.getFloat("prezzo", 1.00f),
+                sp.getString("marca","Parmalat"),
+                sp.getString("scadenza","28/06/16"),
+                sp.getString("produzione","28/05/2016"),
+                sp.getInt("quantita",1),
+                sp.getInt("idImmagine", R.drawable.lattenoback));
+        Log.d("prova shared ", sp.getString("funziono","non va :("));
+        arrayProdotti.add(prodotto);
+        aggiungiProdotti();
     }
 }

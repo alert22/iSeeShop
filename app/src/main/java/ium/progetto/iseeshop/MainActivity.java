@@ -19,11 +19,14 @@ import android.widget.TabHost;
 public class MainActivity extends ActivityGroup implements customToolBarInterface {
 
 
+    TabHost host;
+    public static MainActivity mainActivity;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        mainActivity = this;
         //crezione barra custom per il task manager
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         Bitmap bm = BitmapFactory.decodeResource(getResources(),
@@ -45,7 +48,7 @@ public class MainActivity extends ActivityGroup implements customToolBarInterfac
         Intent carrello = new Intent(this, Carrello.class);
 
 
-        TabHost host = (TabHost) findViewById(R.id.tabHost);
+        host = (TabHost) findViewById(R.id.tabHost);
         host.setup(this.getLocalActivityManager());
 
         final IndicatorView indicatore1 = new IndicatorView(getApplicationContext());
@@ -84,14 +87,12 @@ public class MainActivity extends ActivityGroup implements customToolBarInterfac
             }
         });
         host.addTab(spec);
-
-        if (sp.getBoolean("scansione",true)) {
-            host.setCurrentTab(0);
-        } else {
-            host.setCurrentTab(1);
-        }
     }
 
+
+    public void selezioneTab(int i) {
+        host.setCurrentTab(i);
+    }
 
     @Override
     public void goHome(View v) {

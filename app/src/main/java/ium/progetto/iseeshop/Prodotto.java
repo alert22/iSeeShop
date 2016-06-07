@@ -10,14 +10,24 @@ public class Prodotto {
     private String scadenza;
     private String dataProduzione;
     private int quantita;
+    private int idImmagine;
 
-    public Prodotto(String nome, float prezzo, String produttore, String scadenza, String dataProduzione, int quantita) {
+    public Prodotto(String nome, float prezzo, String produttore, String scadenza, String dataProduzione, int quantita, int idImmagine) {
         this.nome = nome;
         this.prezzo = prezzo;
         this.produttore = produttore;
         this.scadenza = scadenza;
         this.dataProduzione = dataProduzione;
         this.quantita=quantita;
+        this.idImmagine=idImmagine;
+    }
+
+    public int getIdImmagine() {
+        return idImmagine;
+    }
+
+    public void setIdImmagine(int idImmagine) {
+        this.idImmagine = idImmagine;
     }
 
     public String getProduttore() {
