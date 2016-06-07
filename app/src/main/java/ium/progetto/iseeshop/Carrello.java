@@ -3,8 +3,10 @@ package ium.progetto.iseeshop;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v4.app.FragmentActivity;
 import android.text.Html;
 import android.util.Log;
@@ -49,14 +51,14 @@ public class Carrello extends FragmentActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.carrello_layout);
 
-        arrayProdotti = new ArrayList<>();
+        arrayProdotti = new ArrayList<Prodotto>();
         cestino = (ImageButton) findViewById(R.id.cestino);
         listViewCarrello = (ListView) findViewById(R.id.listaProdotti);
         textSomma = (TextView) findViewById(R.id.somma);
         customAdapterCarrello = new CustomAdapterCarrello(this, R.layout.list_element, new ArrayList<Prodotto>());
         listViewCarrello.setAdapter(customAdapterCarrello);
 
-        sp = getSharedPreferences("Prodotti", Context.MODE_PRIVATE);
+        sp = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         final SharedPreferences.Editor editor = sp.edit();
 
         //Creazione Prodotti
@@ -74,87 +76,69 @@ public class Carrello extends FragmentActivity {
         arrayProdotti.add(prodotto2);
         arrayProdotti.add(prodotto2);
 
-        //leggo dal file i prodotti aggiunti nel carrello
-        Log.d("DEBUG", "Leggo dal file le giornate");
-        try {
-            fis = openFileInput(FILE);
-            BufferedReader br = new BufferedReader(new InputStreamReader(fis));
-            String line="";
-            String nome=null;
-             float prezzo=0;
-             String produttore=null;
-             String scadenza=null;
-             String dataProduzione=null;
-             int quantita=0;
-            int count=0;
-            while (null != (line = br.readLine())) {
-              if(count==0){
-                  nome=line;
-                  count++;
-              }else if(count==1){
-                  prezzo=Float.parseFloat(line);
-                  count++;
-              }else if(count ==2){
-                  produttore=line;
-                  count++;
-              }else if(count ==3){
-                    scadenza=line;
-                  count++;
-              }else if(count ==4){
-                  dataProduzione=line;
-                  count++;
-              }else if(count ==5){
-                  quantita=Integer.parseInt(line);
-                  count=0;
-              }else{
-                  Log.d("ERROR","non ci deve arrivare qui" );
-              }
+        //Creazione Prodotto
 
-            }
-            br.close();
-            Prodotto nuovo= new Prodotto(nome, prezzo, produttore, scadenza, dataProduzione, quantita);
-            arrayProdotti.add(nuovo);
-
-        }
-        catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-        catch (IOException e) {
-            e.printStackTrace();
-        }
+        prodotto = new Prodotto(
+                sp.getString("nome","Latte Parmalat"),
+                sp.getFloat("prezzo", 1.00f),
+                sp.getString("marca","Parmalat"),
+                sp.getString("scadenza","28/06/16"),
+                sp.getString("produzione","28/05/2016"),
+                sp.getInt("quantita",1));
+        Log.d("prova shared ", sp.getString("funziono","non va :("));
+        arrayProdotti.add(prodotto);
         aggiungiProdotti();
 
 
         //OnClick listener per eliminazione item
 
-        listViewCarrello.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-            @Override
-            public boolean onItemLongClick(AdapterView<?> parent, View view, final int position, long id) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
-                builder.setTitle(getString(R.string.titleAlertDelete)) //
-                        .setMessage(getString(R.string.textAlertDelete)) //
-                        .setPositiveButton(getString(R.string.deleteProduct), new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int id) {
-                                //elimino il file dei prodotti aggiunti non mi serve piu
-                                File file = new File(FILE);
-                                boolean deleted = file.delete();
-                                arrayProdotti.remove(position);
-                                aggiungiProdotti();
-                                dialog.dismiss();
+        listViewCarrello.setOnItemClickListener(
+                new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                        Prodotto p = arrayProdotti.get(position);
+                        editor.putString("nome",p.getNome());
+                        editor.putFloat("prezzo", p.getPrezzo());
+                        editor.putString("marca",p.getProduttore());
+                        editor.putString("scadenza",p.getScadenza());
+                        editor.putString("produzione",p.getDataProduzione());
+                        editor.putInt("quantita",p.getQuantita());
+                        editor.putBoolean("prodottoDaCarrello", true);
+                        editor.putString("funziono","funziono");
+                        editor.commit();
+                        Intent prodottoTrovato = new Intent(getApplication(), ProdottoTrovato.class);
+                        startActivity(prodottoTrovato);
+                   }
+               });
 
-                            }
-                        }) //
-                        .setNegativeButton(getString(R.string.ignoreDeleteProduct), new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int id) {
-                                dialog.dismiss();
+                listViewCarrello.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+                    @Override
+                    public boolean onItemLongClick(AdapterView<?> parent, View view, final int position, long id) {
+                        AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
+                        builder.setTitle(getString(R.string.titleAlertDelete)) //
+                                .setMessage(getString(R.string.textAlertDelete)) //
+                                .setPositiveButton(getString(R.string.deleteProduct), new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int id) {
+                                        //elimino il file dei prodotti aggiunti non mi serve piu
+                                        File file = new File(FILE);
+                                        boolean deleted = file.delete();
+                                        arrayProdotti.remove(position);
+                                        aggiungiProdotti();
+                                        dialog.dismiss();
 
-                            }
-                        });
-                builder.show();
-                return true;
+                                    }
+                                }) //
+                                .setNegativeButton(getString(R.string.ignoreDeleteProduct), new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int id) {
+                                        dialog.dismiss();
 
-            }
-        });
+                                    }
+                                });
+                        builder.show();
+                        return true;
+
+                    }
+                });
 
         cestino.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -167,7 +151,6 @@ public class Carrello extends FragmentActivity {
                                 arrayProdotti.clear();
                                 customAdapterCarrello.clear();
                                 textSomma.setText("0");
-                                editor.clear();
                                 editor.commit();
                                 dialog.dismiss();
 
