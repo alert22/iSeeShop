@@ -65,7 +65,7 @@ public class Carrello extends FragmentActivity {
 
         //Creazione Prodotti
         prodotto = new Prodotto("Pasta Barilla", 1.20f, "Barilla",  "28/05/2018","29/06/16", 1, R.drawable.pipe_rigate);
-        prodotto1 = new Prodotto("Fagioli Mersì", 2.00f, "Azienda Martea",  "28/05/2016","29/06/17", 2, R.drawable.fagioli);
+        prodotto1 = new Prodotto("Fagioli Mersì", 2.00f, "Azienda Martea", "29/06/17", "28/05/2016", 2, R.drawable.fagioli);
         prodotto2 = new Prodotto("Acqua Vita Snella", 0.90f, "Vita Snella",  "28/05/2019","28/06/16", 4, R.drawable.acqua_vitasnella);
 
 
