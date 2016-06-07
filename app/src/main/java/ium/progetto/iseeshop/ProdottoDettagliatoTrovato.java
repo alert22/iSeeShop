@@ -3,6 +3,7 @@ package ium.progetto.iseeshop;
 import android.app.Activity;
 import android.app.ActivityManager;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -10,25 +11,32 @@ import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 
 /**
  * Created by Alina on 28/05/2016.
  */
-public class ProdottoDettagliatoTrovato extends FragmentActivity implements customToolBarInterface {
+public class ProdottoDettagliatoTrovato extends Activity implements customToolBarInterface {
 
     private static String TAG = "Prodotto Trovato";
     private static String registname = "registrazione";
+    public static final String FILE = "prodottiaAggiunti";
+
     ListView listViewProdotto;
     CustomAdapterProdottoTrovato customAdapter;
     CustomAdapterCarrello customAdapterCarrello;
@@ -36,23 +44,27 @@ public class ProdottoDettagliatoTrovato extends FragmentActivity implements cust
     private AudioManager am;
     private MediaPlayer mp;
     SharedPreferences sp;
-    int contatoreProdottiAggiunti =0;
+    int contatoreProdottiAggiunti = 0;
     TextView nomeActivity;
+    Button piu, meno;
+    EditText quantita;
+    int quant = 0;
     ImageButton frecciaGiu;
-
     ImageButton play, home, addCarrello;
     boolean iconaPlay = true;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.prodotto_trovato_dettagliato_layout);
 
-        frecciaGiu = (ImageButton) findViewById(R.id.frecciagiu);
 
-        nomeActivity = (TextView)findViewById(R.id.nomeActivity);
+        nomeActivity = (TextView) findViewById(R.id.nomeActivity);
         nomeActivity.setText("Dettaglio Prodotto");
         play = (ImageButton) findViewById(R.id.play);
+        quantita = (EditText) findViewById(R.id.quantita2);
 
+        frecciaGiu = (ImageButton) findViewById(R.id.frecciagiu);
 
         Bitmap bm = BitmapFactory.decodeResource(getResources(),
                 R.drawable.ic_launcher);
@@ -72,57 +84,56 @@ public class ProdottoDettagliatoTrovato extends FragmentActivity implements cust
         window.setStatusBarColor(getResources().getColor(R.color.coloreStatusBar));
 
         listViewProdotto = (ListView) findViewById(R.id.listview);
-        customAdapter = new CustomAdapterProdottoTrovato(this,R.layout.list_element_prodotto_trovato, new ArrayList<String>());
+        customAdapter = new CustomAdapterProdottoTrovato(this, R.layout.list_element_prodotto_trovato, new ArrayList<String>());
         listViewProdotto.setAdapter(customAdapter);
         play = (ImageButton) findViewById(R.id.play);
-        addCarrello =(ImageButton) findViewById(R.id.carrello);
-
-        sp = getSharedPreferences("Prodotti", Context.MODE_PRIVATE);
-
-        final SharedPreferences.Editor editor = sp.edit();
-        editor.clear();
-        editor.commit();
+        addCarrello = (ImageButton) findViewById(R.id.carrello);
 
         sp = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+
 
         //Creazione Prodotto
 
         prodotto = new Prodotto(
-                sp.getString("nome","Latte Parmalat"),
+                sp.getString("nome", "Latte Parmalat"),
                 sp.getFloat("prezzo", 1.00f),
-                sp.getString("marca","Parmalat"),
-                sp.getString("scadenza","28/06/16"),
-                sp.getString("produzione","28/05/2016"),
-                sp.getInt("quantita",1));
-        Log.d("prova shared ", sp.getString("funziono","non va :("));
+                sp.getString("marca", "Parmalat"),
+                sp.getString("scadenza", "28/06/16"),
+                sp.getString("produzione", "28/05/2016"),
+                sp.getInt("quantita", 1));
+        Log.d("prova shared ", sp.getString("funziono", "non va :("));
 
         //aggiungo al list view
         customAdapter.add(prodotto.getNome());
-        customAdapter.add(""+prodotto.getPrezzo()+"€");
+        customAdapter.add("" + prodotto.getPrezzo() + "€");
         customAdapter.add("Elemento 2/5");
         customAdapter.notifyDataSetChanged();
+
+        //riproduzione vocale play/pausa
         play.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(iconaPlay) {
+                if (iconaPlay) {
                     play.setBackground(getDrawable(R.drawable.pausa));
-                    Log.d(TAG,"buttonPlay pressed");
+                    Log.d(TAG, "buttonPlay pressed");
                     if (mp == null) {
                         Toast.makeText(getApplicationContext(), "Nessun brano selezionato", Toast.LENGTH_SHORT).show();
                         return;
                     }
                     mp.start();
-                    iconaPlay=false;
-                }else{
+                    iconaPlay = false;
+                } else {
                     play.setBackground(getDrawable(R.drawable.play));
-                    Log.d(TAG,"buttonPause pressed");
+                    Log.d(TAG, "buttonPause pressed");
                     if (mp != null) {
                         mp.pause();
                     }
-                    iconaPlay=true;
+                    iconaPlay = true;
                 }
             }
         });
+
+        //Freccia su
 
         frecciaGiu.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -131,25 +142,56 @@ public class ProdottoDettagliatoTrovato extends FragmentActivity implements cust
             }
         });
 
-        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-        if(sp.getBoolean("daCarrello", false)) {
-            addCarrello.setBackground(getDrawable(R.drawable.cestino));
+        //aggiunta al carrello
 
+        if (sp.getBoolean("prodottoDaCarrello", true)) {
+            addCarrello.setBackground(getDrawable(R.drawable.cestino));
         } else {
+            addCarrello.setBackground(getDrawable(R.drawable.carrello));
             addCarrello.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    //utilizzo sharePreferences per aggiungere i prodotti al carrello
-                    contatoreProdottiAggiunti++;
-                    editor.putString(""+contatoreProdottiAggiunti, prodotto.getNome());
-                    editor.putFloat(prodotto.getNome(), prodotto.getPrezzo());
-                    editor.apply();
-                    Toast.makeText(getApplication(),"Il prodotto è stato aggiunto al carrello.", Toast.LENGTH_LONG).show();
+
+
+                    Toast.makeText(getApplication(), "Il prodotto è stato aggiunto al carrello.", Toast.LENGTH_LONG).show();
+
+                    finish();
+                    Intent carrello = new Intent(getApplication(), MainActivity.class);
+                    SharedPreferences.Editor editor = sp.edit();
+                    editor.putString("nome", prodotto.getNome());
+                    editor.putFloat("prezzo", prodotto.getPrezzo());
+                    editor.putString("marca", prodotto.getProduttore());
+                    editor.putString("scadenza", prodotto.getScadenza());
+                    editor.putString("produzione", prodotto.getDataProduzione());
+                    editor.putInt("quantita", Integer.parseInt(quantita.getText().toString()));
+                    editor.putBoolean("prodottoDaCarrello", true);
+                    editor.putString("funziono", "funziono");
+                    editor.putBoolean("scansione", false).commit();
+                    editor.commit();
+                    startActivity(carrello);
+
 
                 }
             });
         }
-            }
+    }
+
+    public void piu(View v) {
+        quant = Integer.parseInt(quantita.getText().toString());
+        quant = quant + 1;
+        quantita.setText("" + quant);
+    }
+
+    public void meno(View v) {
+        quant = Integer.parseInt(quantita.getText().toString());
+        quant = quant - 1;
+        if (quant < 1) {
+            quantita.setText("1");
+        } else {
+            quantita.setText("" + quant);
+        }
+    }
+
 
     @Override
     public void goHome(View v) {
@@ -161,5 +203,5 @@ public class ProdottoDettagliatoTrovato extends FragmentActivity implements cust
         CustomToolBar.show(this, v);
     }
 
-
 }
+

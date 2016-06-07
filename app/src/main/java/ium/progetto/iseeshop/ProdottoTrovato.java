@@ -166,10 +166,10 @@ public class ProdottoTrovato extends Activity implements customToolBarInterface 
                     editor.putString("marca",prodotto.getProduttore());
                     editor.putString("scadenza",prodotto.getScadenza());
                     editor.putString("produzione",prodotto.getDataProduzione());
-                    editor.putInt("quantita",prodotto.getQuantita());
+                    editor.putInt("quantita",Integer.parseInt(quantita.getText().toString()));
                     editor.putBoolean("prodottoDaCarrello", true);
                     editor.putString("funziono","funziono");
-                    sp.edit().putBoolean("scansione", false).commit();
+                    editor.putBoolean("scansione", false).commit();
                     editor.commit();
                     startActivity(carrello);
 
