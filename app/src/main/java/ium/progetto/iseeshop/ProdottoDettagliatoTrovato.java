@@ -2,7 +2,9 @@ package ium.progetto.iseeshop;
 
 import android.app.Activity;
 import android.app.ActivityManager;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
@@ -19,6 +21,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -43,6 +46,7 @@ public class ProdottoDettagliatoTrovato extends Activity implements customToolBa
     Prodotto prodotto;
     private AudioManager am;
     private MediaPlayer mp;
+    ImageView imgProdotto;
     SharedPreferences sp;
     int contatoreProdottiAggiunti = 0;
     TextView nomeActivity;
@@ -52,13 +56,15 @@ public class ProdottoDettagliatoTrovato extends Activity implements customToolBa
     ImageButton frecciaGiu;
     ImageButton play, home, addCarrello;
     boolean iconaPlay = true;
+    LinearLayout quantitaLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.prodotto_trovato_dettagliato_layout);
 
-
+        quantitaLayout = (LinearLayout) findViewById(R.id.quantitaLayout);
+        imgProdotto = (ImageView) findViewById(R.id.imgProdotto);
         nomeActivity = (TextView) findViewById(R.id.nomeActivity);
         nomeActivity.setText("Dettaglio Prodotto");
         play = (ImageButton) findViewById(R.id.play);
@@ -104,6 +110,9 @@ public class ProdottoDettagliatoTrovato extends Activity implements customToolBa
                 sp.getInt("idImmagine", R.drawable.lattenoback));
         Log.d("prova shared ", sp.getString("funziono", "non va :("));
 
+        quantita.setText("" + prodotto.getQuantita());
+        imgProdotto.setImageDrawable(getDrawable(prodotto.getIdImmagine()));
+
         //aggiungo al list view
         customAdapter.add(prodotto.getNome());
         customAdapter.add("" + prodotto.getPrezzo() + "€");
@@ -139,7 +148,10 @@ public class ProdottoDettagliatoTrovato extends Activity implements customToolBa
         frecciaGiu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                goHome(v);
+                sp.edit().putInt("quantita",Integer.parseInt(quantita.getText().toString())).commit();
+                Intent prodottoTrovato = new Intent(getApplication(), ProdottoTrovato.class);
+                startActivity(prodottoTrovato);
+                finish();
             }
         });
 
@@ -147,6 +159,30 @@ public class ProdottoDettagliatoTrovato extends Activity implements customToolBa
 
         if (sp.getBoolean("prodottoDaCarrello", true)) {
             addCarrello.setBackground(getDrawable(R.drawable.cestino));
+            quantitaLayout.setVisibility(View.INVISIBLE);
+            addCarrello.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
+                    builder.setTitle(getString(R.string.textAlertDelete)) //
+                            .setMessage(getString(R.string.deleteCarrello)) //
+                            .setPositiveButton(getString(R.string.si), new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+                                    Carrello.carrello.rimuoviProdotto(sp.getInt("posizione",0));
+                                    goBack();
+                                    dialog.dismiss();
+
+                                }
+                            }) //
+                            .setNegativeButton(getString(R.string.ignoreDeleteProduct), new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+                                    dialog.dismiss();
+
+                                }
+                            });
+                    builder.show();
+                }
+            });
         } else {
             addCarrello.setBackground(getDrawable(R.drawable.carrello));
             addCarrello.setOnClickListener(new View.OnClickListener() {
@@ -170,7 +206,8 @@ public class ProdottoDettagliatoTrovato extends Activity implements customToolBa
                     editor.putString("funziono", "funziono");
                     editor.putBoolean("scansione", false).commit();
                     editor.commit();
-                    startActivity(carrello);
+                    goHome(v);
+                    //startActivity(carrello);
 
 
                 }
@@ -194,6 +231,9 @@ public class ProdottoDettagliatoTrovato extends Activity implements customToolBa
         }
     }
 
+    public void goBack() {
+        this.finish();
+    }
 
     @Override
     public void goHome(View v) {
