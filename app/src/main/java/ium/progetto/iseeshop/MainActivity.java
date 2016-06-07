@@ -86,7 +86,6 @@ public class MainActivity extends ActivityGroup implements customToolBarInterfac
         host.addTab(spec);
 
         if (sp.getBoolean("scansione",true)) {
-
             host.setCurrentTab(0);
         } else {
             host.setCurrentTab(1);

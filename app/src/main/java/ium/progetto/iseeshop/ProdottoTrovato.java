@@ -18,6 +18,7 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -48,7 +49,7 @@ public class ProdottoTrovato extends Activity implements customToolBarInterface 
     Button piu, meno;
     EditText quantita;
     int quant=0;
-
+    ImageButton frecciaSu;
     ImageButton play, home, addCarrello;
     boolean iconaPlay = true;
     @Override
@@ -63,6 +64,8 @@ public class ProdottoTrovato extends Activity implements customToolBarInterface 
         piu = (Button)findViewById(R.id.piu);
         meno = (Button) findViewById(R.id.meno);
         quantita = (EditText) findViewById(R.id.quantita);
+
+        frecciaSu = (ImageButton) findViewById(R.id.frecciasu);
 
         Bitmap bm = BitmapFactory.decodeResource(getResources(),
                 R.drawable.ic_launcher);
@@ -87,16 +90,19 @@ public class ProdottoTrovato extends Activity implements customToolBarInterface 
         play = (ImageButton) findViewById(R.id.play);
         addCarrello =(ImageButton) findViewById(R.id.carrello);
 
-        sp = getSharedPreferences("Prodotti", Context.MODE_PRIVATE);
-
-        final SharedPreferences.Editor editor = sp.edit();
-        editor.clear();
-        editor.commit();
+        sp = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
 
 
         //Creazione Prodotto
 
-        prodotto = new Prodotto("Latte Parmalat", 1.00f, "Parmalat", "28/06/16", "28/05/2016", 1);
+        prodotto = new Prodotto(
+                sp.getString("nome","Latte Parmalat"),
+                sp.getFloat("prezzo", 1.00f),
+                sp.getString("marca","Parmalat"),
+                sp.getString("scadenza","28/06/16"),
+                sp.getString("produzione","28/05/2016"),
+                sp.getInt("quantita",1));
+                Log.d("prova shared ", sp.getString("funziono","non va :("));
 
         //aggiungo al list view
         customAdapter.add(prodotto.getNome());
@@ -128,47 +134,49 @@ public class ProdottoTrovato extends Activity implements customToolBarInterface 
             }
         });
 
-        //aggiunta al carrello
-        addCarrello.setOnClickListener(new View.OnClickListener() {
+        //Freccia su
+
+        frecciaSu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                FileOutputStream fos = null;
-
-                Log.d("DEBUG", "Salvo sul file il prodotto");
-                try {
-                    fos = openFileOutput(FILE, Context.MODE_PRIVATE);
-                    //prendo la quantita inserita dall'utente e lo setto nel prodotto
-                    quant=Integer.parseInt(quantita.getText().toString());
-                    prodotto.setQuantita(quant);
-
-                    //salvo l'intero prodotto sul file per leggerlo nel carrello successivamente
-                        String str = prodotto.getNome()+"\n" +prodotto.getPrezzo()+"\n"+ prodotto.getProduttore()+"\n"+prodotto.getScadenza()+"\n"+prodotto.getDataProduzione()+"\n"+prodotto.getQuantita()+"\n";
-                        fos.write(str.getBytes());
-
-
-                    fos.close();
-
-                }
-                catch (FileNotFoundException e) {
-                    e.printStackTrace();
-                }
-                catch (IOException e) {
-                    e.printStackTrace();
-                }
-
-                Toast.makeText(getApplication(),"Il prodotto è stato aggiunto al carrello.", Toast.LENGTH_LONG).show();
-
-                finish();
-                Intent carrello= new Intent(getApplication(), MainActivity.class);
-                SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-                sp.edit().putBoolean("scansione",false).commit();
-                sp.edit().apply();
-                startActivity(carrello);
-
-
+                Intent prodottoDettagliato = new Intent(getApplication(), ProdottoDettagliatoTrovato.class);
+                startActivity(prodottoDettagliato);
             }
         });
+
+        //aggiunta al carrello
+
+        if (sp.getBoolean("prodottoDaCarrello", true)) {
+            addCarrello.setBackground(getDrawable(R.drawable.cestino));
+        } else {
+            addCarrello.setBackground(getDrawable(R.drawable.carrello));
+            addCarrello.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+
+
+                    Toast.makeText(getApplication(), "Il prodotto è stato aggiunto al carrello.", Toast.LENGTH_LONG).show();
+
+                    finish();
+                    Intent carrello = new Intent(getApplication(), MainActivity.class);
+                    SharedPreferences.Editor editor = sp.edit();
+                    editor.putString("nome",prodotto.getNome());
+                    editor.putFloat("prezzo", prodotto.getPrezzo());
+                    editor.putString("marca",prodotto.getProduttore());
+                    editor.putString("scadenza",prodotto.getScadenza());
+                    editor.putString("produzione",prodotto.getDataProduzione());
+                    editor.putInt("quantita",prodotto.getQuantita());
+                    editor.putBoolean("prodottoDaCarrello", true);
+                    editor.putString("funziono","funziono");
+                    sp.edit().putBoolean("scansione", false).commit();
+                    editor.commit();
+                    startActivity(carrello);
+
+
+                }
+            });
+        }
 
         piu.setOnClickListener(new View.OnClickListener() {
             @Override

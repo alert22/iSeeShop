@@ -83,9 +83,18 @@ public class ProdottoDettagliatoTrovato extends FragmentActivity implements cust
         editor.clear();
         editor.commit();
 
+        sp = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
 
         //Creazione Prodotto
-        prodotto = new Prodotto("Latte Parmalat", 1.00f, "Parmalat", "28/06/16", "28/05/2016", 1);
+
+        prodotto = new Prodotto(
+                sp.getString("nome","Latte Parmalat"),
+                sp.getFloat("prezzo", 1.00f),
+                sp.getString("marca","Parmalat"),
+                sp.getString("scadenza","28/06/16"),
+                sp.getString("produzione","28/05/2016"),
+                sp.getInt("quantita",1));
+        Log.d("prova shared ", sp.getString("funziono","non va :("));
 
         //aggiungo al list view
         customAdapter.add(prodotto.getNome());
