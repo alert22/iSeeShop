@@ -73,7 +73,7 @@ public class Carrello extends FragmentActivity {
         arrayProdotti.add(prodotto);
         arrayProdotti.add(prodotto1);
         arrayProdotti.add(prodotto2);
-
+ 
         //Creazione Prodotto
         aggiungiProdotti();
 

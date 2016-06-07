@@ -120,7 +120,7 @@ public class ProdottoDettagliatoTrovato extends Activity implements customToolBa
         customAdapter.add("" + prodotto.getPrezzo() + "€");
         customAdapter.add("D.Produzione: "+prodotto.getDataProduzione());
         customAdapter.add("D.Scadenza: "+prodotto.getScadenza());
-        customAdapter.add(prodotto.getQuantita() + "pz");
+        customAdapter.add(prodotto.getQuantita() + "");
         customAdapter.notifyDataSetChanged();
 
         //riproduzione vocale play/pausa
@@ -199,18 +199,20 @@ public class ProdottoDettagliatoTrovato extends Activity implements customToolBa
                     finish();
                     Intent carrello = new Intent(getApplication(), MainActivity.class);
                     SharedPreferences.Editor editor = sp.edit();
-                    editor.putString("nome", prodotto.getNome());
+                    editor.putString("nome",prodotto.getNome());
                     editor.putFloat("prezzo", prodotto.getPrezzo());
-                    editor.putString("marca", prodotto.getProduttore());
-                    editor.putString("scadenza", prodotto.getScadenza());
-                    editor.putString("produzione", prodotto.getDataProduzione());
-                    editor.putInt("quantita", Integer.parseInt(quantita.getText().toString()));
+                    editor.putString("marca",prodotto.getProduttore());
+                    editor.putString("scadenza",prodotto.getScadenza());
+                    editor.putString("produzione",prodotto.getDataProduzione());
+                    editor.putInt("quantita",Integer.parseInt(quantita.getText().toString()));
                     editor.putInt("idImmagine", prodotto.getIdImmagine());
-                    editor.putBoolean("prodottoDaCarrello", true);
-                    editor.putString("funziono", "funziono");
-                    editor.putBoolean("scansione", false).commit();
+                    editor.putBoolean("prodottoDaCarrello", false);
+                    editor.putString("funziono","funziono");
                     editor.putInt("idAudio",prodotto.getIdAudio());
+                    editor.putBoolean("scansione", false).commit();
                     editor.commit();
+                    MainActivity.mainActivity.selezioneTab(1);
+                    Carrello.carrello.aggiungiProdotto();
                     goHome(v);
                     //startActivity(carrello);
 

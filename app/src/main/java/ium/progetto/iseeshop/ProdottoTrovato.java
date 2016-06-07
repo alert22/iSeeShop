@@ -114,7 +114,7 @@ public class ProdottoTrovato extends Activity implements customToolBarInterface 
                 sp.getInt("idAudio", R.raw.registrazione));
                 Log.d("prova shared ", sp.getString("funziono","non va :("));
 
-        quantita.setText("" + prodotto.getQuantita()); 
+        quantita.setText("" + prodotto.getQuantita());
         imgProdotto.setImageDrawable(getDrawable(prodotto.getIdImmagine()));
         //aggiungo al list view
         customAdapter.add(prodotto.getNome());
