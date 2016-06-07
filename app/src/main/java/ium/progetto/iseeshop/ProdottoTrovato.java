@@ -108,7 +108,7 @@ public class ProdottoTrovato extends Activity implements customToolBarInterface 
                 sp.getInt("idImmagine",R.drawable.lattenoback));
                 Log.d("prova shared ", sp.getString("funziono","non va :("));
 
-
+        quantita.setText("" + prodotto.getQuantita());
         imgProdotto.setImageDrawable(getDrawable(prodotto.getIdImmagine()));
         //aggiungo al list view
         customAdapter.add(prodotto.getNome());
@@ -145,8 +145,10 @@ public class ProdottoTrovato extends Activity implements customToolBarInterface 
         frecciaSu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                sp.edit().putInt("quantita",Integer.parseInt(quantita.getText().toString())).commit();
                 Intent prodottoDettagliato = new Intent(getApplication(), ProdottoDettagliatoTrovato.class);
                 startActivity(prodottoDettagliato);
+                finish();
             }
         });
 
