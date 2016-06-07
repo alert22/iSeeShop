@@ -6,9 +6,11 @@ import android.app.ActivityManager;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v4.app.FragmentActivity;
 import android.view.View;
 import android.view.Window;
@@ -19,7 +21,7 @@ import android.widget.LinearLayout;
 public class Scansione extends FragmentActivity {
 
     //crezione barra custom per il task manager
-
+    SharedPreferences sp;
     ImageView immagineNfc;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +51,11 @@ public class Scansione extends FragmentActivity {
                         .setPositiveButton(getString(R.string.showProduct), new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
 
+                                sp = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+                                SharedPreferences.Editor editor = sp.edit();
+                                editor.clear();
+                                editor.commit();
+                                editor.putBoolean("prodottoDaCarrello", false).commit();
                                 Intent prodottoTrovato = new Intent(getApplication(),ProdottoTrovato.class);
                                 startActivity(prodottoTrovato);
                                 dialog.dismiss();

@@ -9,6 +9,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -24,7 +25,7 @@ public class MainActivity extends ActivityGroup implements customToolBarInterfac
         setContentView(R.layout.activity_main);
 
         //crezione barra custom per il task manager
-
+        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         Bitmap bm = BitmapFactory.decodeResource(getResources(),
                 R.drawable.ic_launcher);
         ActivityManager.TaskDescription taskDesc =
@@ -65,6 +66,8 @@ public class MainActivity extends ActivityGroup implements customToolBarInterfac
             }
         });
 
+
+
         host.addTab(spec);
 
         //Tab 2
@@ -82,6 +85,11 @@ public class MainActivity extends ActivityGroup implements customToolBarInterfac
         });
         host.addTab(spec);
 
+        if (sp.getBoolean("scansione",true)) {
+            host.setCurrentTab(0);
+        } else {
+            host.setCurrentTab(1);
+        }
     }
 
 
