@@ -120,7 +120,7 @@ public class ProdottoDettagliatoTrovato extends Activity implements customToolBa
         customAdapter.add("" + prodotto.getPrezzo() + "€");
         customAdapter.add("D.Produzione: "+prodotto.getDataProduzione());
         customAdapter.add("D.Scadenza: "+prodotto.getScadenza());
-        customAdapter.add(prodotto.getQuantita() + "");
+        customAdapter.add("Quantità: "+ prodotto.getQuantita());
         customAdapter.notifyDataSetChanged();
 
         //riproduzione vocale play/pausa
